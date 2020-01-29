@@ -1,0 +1,76 @@
+<div>
+	<md-list class="sidenav-list p0" pip-focused pip-focused-tabindex="10" pip-with-hidden="true">
+		<div class="pip-section" ng-repeat="link in $ctrl.organizations track by $index" ng-if="$ctrl.organizations && $ctrl.organizations.length">
+			<md-list-item class="no-border pip-sticky-nav-menu-item p0 pip-focusable" tabindex="-1" ng-class="{'active': $ctrl.isActive(link)}">
+				<md-button ng-click="$ctrl.onClick(link.id)" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+					tabindex="-1">
+					<pip-avatar pip-id="link.id" pip-rebind="true" pip-name="link.name" class="pip-face "></pip-avatar>
+					<md-tooltip class="iqs-sidenav-icon-tooltip" ng-if="$ctrl.pipMedia('sm') || $ctrl.pipMedia('md')" md-direction="right">
+						{{ ::link.name | translate }}
+					</md-tooltip>
+					<div class="pip-sticky-nav-menu-icon-block">
+					</div>
+					<div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz iqs-hide-small-text flex  lm16 ">
+						{{ ::link.name | translate }}
+					</div>
+				</md-button>
+			</md-list-item>
+		</div>
+
+		<md-divider></md-divider>
+
+		<md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable p0 iqs-button" tabindex="-1" ng-if="$ctrl.canAddOrganization">
+			<md-button ng-click="$ctrl.addClick()" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+				tabindex="-1">
+				<md-tooltip md-visible="showTooltip" class="iqs-sidenav-icon-tooltip" ng-if="$ctrl.pipMedia('sm') || $ctrl.pipMedia('md')" md-direction="right">
+					{{ ::'ADD_SITE' | translate }}
+				</md-tooltip>
+				<div class="pip-sticky-nav-menu-icon-block lp16">
+					<div class="iqs-add-organization">
+						<md-icon class="pip-sticky-nav-menu-icon flex-fixed m0 bm8" md-svg-icon="icons:plus">
+						</md-icon>
+					</div>
+				</div>
+				<div class="pip-sticky-nav-menu-title lm16 iqs-hide-small-text pip-sticky-nav-menu-title-moz pip-st-moz-buttons flex iqs-text">
+					{{ ::'ADD_SITE' | translate }}
+				</div>
+			</md-button>
+		</md-list-item>
+
+		<md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable p0 iqs-button" tabindex="-1" ng-if="$ctrl.canRemoveOrganization">
+			<md-button ng-click="$ctrl.deleteClick()" class="  layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+				tabindex="-1">
+				<md-tooltip md-visible="showTooltip" class="iqs-sidenav-icon-tooltip" ng-if="$ctrl.pipMedia('sm') || $ctrl.pipMedia('md')" md-direction="right">
+					{{ ::'REMOVE_SITE' | translate }}
+				</md-tooltip>
+				<div class="pip-sticky-nav-menu-icon-block lp16">
+					<div class="iqs-add-organization">
+						<md-icon class="pip-sticky-nav-menu-icon flex-fixed m0 bm8" md-svg-icon="icons:minus">
+						</md-icon>
+					</div>
+				</div>
+				<div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz pip-st-moz-buttons lm16 iqs-hide-small-text iqs-text">
+					{{ ::'REMOVE_SITE' | translate }}
+				</div>
+			</md-button>
+		</md-list-item>
+		<md-divider></md-divider>
+		<md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable p0 iqs-button" tabindex="2">
+			<md-button ng-click="$ctrl.closeClick()" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+				tabindex="-1">
+				<md-tooltip md-visible="showTooltip" class="iqs-sidenav-icon-tooltip" ng-if="$ctrl.pipMedia('sm') || $ctrl.pipMedia('md')" md-direction="right">
+					{{ ::'CLOSE_SITES' | translate }}
+				</md-tooltip>
+				<div class="pip-sticky-nav-menu-icon-block lp16 ">
+					<div class="iqs-del-organization">
+						<md-icon class="pip-sticky-nav-menu-icon flex-fixed m0 bm8" md-svg-icon="icons:cross">
+						</md-icon>
+					</div>
+				</div>
+				<div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz pip-st-moz-buttons lm16 iqs-hide-small-text iqs-text">
+					{{ ::'CLOSE_SITES' | translate }}
+				</div>
+			</md-button>
+		</md-list-item>
+	</md-list>
+</div>

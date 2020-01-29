@@ -1,0 +1,98 @@
+.pip-content-container .scrolled {
+    overflow-y: auto;
+}
+
+@media (min-width: 769px) {
+    .pip-content-container {
+        max-width: calc(100% - 300px) !important;
+    }
+}
+
+pre {
+    border-radius: 4px;
+}
+
+.flat {
+    box-shadow: none !important;
+}
+
+.bb-landing {
+  background-color: rgb(177, 55, 34);
+  color: #fff;
+  width: 100%;
+  overflow-y: auto;
+}
+  .bb-landing .bb-content {
+    width: 50%;
+    padding: 24px;
+  }
+  
+  .bb-landing  .bb-title {
+
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .bb-landing .bb-pic {
+    width: 843px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .bb-landing .bb-button.md-accent {
+    background-color: #7f945c !important;
+    width: 200px;
+  }
+  .bb-landing  .bb-xs{
+    display: none;
+  }
+  .bb-landing  .bb-gt-xs{
+    display: block;
+  }
+  @media (max-height: 640px) {
+      .bb-landing {
+    display: block;}
+    .bb-landing .bb-content{
+     margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .bb-landing  .bb-title {
+      font-size: 24px;
+    }
+    .bb-landing .bb-content {
+      width: 50%;
+      padding: 24px;
+    }
+  }
+  @media (max-width: 768px) {
+    @media (max-height: 520px) {
+      .bb-landing {display: block;}
+      .bb-landing  .bb-pic{
+        margin: 0 auto;
+      }
+    }
+    .bb-landing .bb-title {
+      font-size: 20px;
+      max-width: 250px;
+    }
+    .bb-landing .bb-content {
+      width: 100%;
+      padding: 16px;
+    }
+    .bb-landing .bb-pic{
+      width:270px;
+      height: 320px;
+    }
+    .bb-landing .bb-xs{
+      display: block;
+    }
+    .bb-landing .bb-gt-xs{
+      display: none;
+    }
+  }
+
+.bg-color-8 {
+  background: #7f945c !important;
+}

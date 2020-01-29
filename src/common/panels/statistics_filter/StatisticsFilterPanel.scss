@@ -1,0 +1,110 @@
+@import './dialog/FilterDialog';
+
+.iqs-statistics-filter-panel {
+    .param-block {
+        display: inline-block;
+        height: 48px;
+        min-width: 100px;
+
+        &.time-block {
+            min-width: 90px;
+            width: 90px;
+        }
+
+        pip-time-autocomplete {
+            md-input-container {
+                margin: 0 !important;
+                cursor: pointer!important;
+                input {
+                    border-bottom: none !important;
+                    cursor: pointer!important;
+                }
+                .md-errors-spacer {
+                    min-height: 0 !important;
+                    height: 0 !important;
+                }
+            }
+        }
+    }
+
+    .iqs-stats-datepicker {
+        height: 45px;
+        .md-datepicker-input {
+            text-align: left;
+        }
+
+        input {
+            border: 0px !important;
+        }
+    }
+
+    .md-datepicker-button {
+        visibility: hidden;
+    }
+
+
+    md-select .md-select-value,  md-select.md-iqt-main-theme .md-select-value {
+        // padding-left: 0px !important;
+        border-bottom: 0px !important;
+        // color: rgba(255, 255, 255, 0.870588) !important; 
+    }
+    
+    md-select .md-select-value .md-text {
+        padding-right: 0px;
+    }
+
+    .md-datepicker-input {
+        padding: 0px;
+        max-width: 100px;
+        min-width: 80px;
+        font-size: 12px;
+        text-align: right;
+    }
+
+    .iqs-datapicker-container-left {
+        
+        .md-datepicker-input {
+            text-align: left;
+        }
+        height: 48px;
+    }
+
+    .iqs-date-label {
+        height: 48px;
+        padding-top: 19px;
+        font-size: 12px;
+        padding-bottom: 15px;
+    }
+
+    .iqs-week {
+        .md-datepicker-input {
+            max-width: 130px;
+        }
+    }
+
+    .iqs-active-date {
+        .md-datepicker-input {
+            cursor: pointer!important;
+            font-weight: 500;
+        }        
+    }
+
+    .iqs-medium-select {
+        max-width: 150px;
+    }
+
+    .iqs-filter-panel-container {
+        min-height: 54px;
+        @include flex-var;
+        @include flex();        
+        @include flex-direction(row);
+    }
+
+
+    .iqs-filter-panel-stretch-lg {
+        display: block;
+    }
+    .iqs-filter-panel-stretch-sm {
+        display: none;
+    }    
+}

@@ -1,0 +1,35 @@
+<div class="aux-btn-close pointer" ng-click="$ctrl.closeAuxPanel()" ng-if="!$ctrl.hideButton">
+    <md-icon md-svg-icon="icons:cross"></md-icon>
+</div>
+
+<div class="global-help-guide-list pip-scroll-y layout-column bp0 tp0 flex">
+    <md-list class="pip-ref-list p0">
+
+        <md-list-item class="pip-ref-list-item pointer lp16 tp0 divider-bottom" ng-repeat="item in $ctrl.collection track by $index"
+                      md-ink-ripple>
+            <div class="layout-row layout-align-start-start pip-content " ng-click="$ctrl.onDetails(item)">
+                <p class="text-subhead2 incidents-description text-overflow flex">
+                    {{ item.app }}, {{ item.version }}
+                    <span ng-if="item.type == 'introduction'">
+                        {{ ::'GUIDES_INTRODUCTION' | translate }}
+                    </span>
+                    <span ng-if="item.type == 'new release'">
+                        {{ ::'GUIDES_RELEASE' | translate }}
+                    </span>
+                </p>
+            </div>
+        </md-list-item>
+    </md-list>
+
+    <div class="layout-column layout-align-center-center flex iqs-empty" ng-if="$ctrl.state == 'empty'">
+        <div class="pip-empty" style="display: block; height: calc(100%);">
+            <img src="images/empty/empty.svg" class="pip-pic" style="display: block;">
+            <div class="text-subhead1 text-center tm16">
+                {{ ::'GLOBAL_HELP_GUIDES_AUX_DATA_EMPTY_TITLE' | translate }}
+            </div>
+            <div class="text-subhead1 text-center">
+                {{ ::'GLOBAL_HELP_GUIDES_AUX_DATA_EMPTY_SUBTITLE' | translate }}
+            </div>
+        </div>
+    </div>
+</div>

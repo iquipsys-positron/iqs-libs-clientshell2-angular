@@ -1,0 +1,12 @@
+<div class="pip-error-scroll-body pip-scroll">
+    <div class="pip-error pip-error-page layout-column flex layout-align-center-center">
+        <img src="images/404_page.svg" class="pip-pic block">
+        <div class="pip-error-text">{{::'ERROR_UNAUTHORIZED_TITLE' | translate}}</div>
+        <div class="pip-error-subtext">{{::'ERROR_UNAUTHORIZED_SUBTITLE' | translate}}</div>
+        <div class="pip-error-actions h48 layout-column layout-align-center-center" ng-if="$ctrl.isCordova">
+            <md-button class="md-accent" ng-click="$ctrl.onSignin($event)" aria-label="CLOSE">
+                {{::'ERROR_UNAUTHORIZED_SIGNOUT' | translate}}
+            </md-button>
+        </div>
+    </div>
+</div>

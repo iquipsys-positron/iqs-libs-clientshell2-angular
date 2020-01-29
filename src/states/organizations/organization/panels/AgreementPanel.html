@@ -1,0 +1,45 @@
+<form name="form" novalidate autocomplete="off" ng-submit="$ctrl.onSaveClick()">
+    <input type="password" style="display:none">
+
+    <md-input-container class="bm0 md-block flex">
+        <label>{{::'SITES_CREATE_AGREEMENT_NUMBER_LABEL' | translate}}</label>
+        <input iqs-test-card-number type="text" value="" autocomplete="off" name="agreementNumber" aria-label="AGREEMENT_NUMBER"
+               ng-model="$ctrl.agreementNumber" required ng-disabled="$ctrl.isDisabled()" ng-change="$ctrl.onChange()" />
+
+        <div ng-messages="$ctrl.touchedErrorsWithHint($ctrl.form, $ctrl.form.agreementNumber)" role="alert">
+            <div ng-message="required">{{ 'SITES_CREATE_AGREEMENT_NUMBER_REQ_ERR' | translate }}</div>
+            <div ng-message="agreementValidate">{{ 'SITES_CREATE_AGREEMENT_VALIDATE_ERROR' | translate }}</div>
+        </div>
+    </md-input-container>
+
+    <md-input-container class="bm0 md-block flex">
+        <label>{{::'SITES_CREATE_AGREEMENT_INN_LABEL' | translate}}</label>
+        <input iqs-test-card-name type="text" value="" autocomplete="off" name="agreementInn" aria-label="AGREEMENT_INN"
+               ng-model="$ctrl.agreementInn" required ng-disabled="$ctrl.isDisabled()" />
+
+        <div ng-messages="$ctrl.touchedErrorsWithHint($ctrl.form, $ctrl.form.agreementInn)" role="alert">
+            <div ng-message="required">{{ 'SITES_CREATE_AGREEMENT_INN_REQ_ERR' | translate }}</div>
+        </div>
+    </md-input-container>
+
+    <div ng-if="!$ctrl.pipMedia('gt-sm')">
+        <md-button iqs-test-back class="md-primary md-raised w-stretch flex lm0 rm0 tm16" ng-click="$ctrl.onCancel()">
+            {{ ::'SITES_CREATE_BACK' | translate }}
+        </md-button>
+        <md-button iqs-test-next class="md-primary md-raised w-stretch flex lm0 rm0 bm0" ng-disabled="$ctrl.isDisabled()"
+                   type="submit" xxng-click="$ctrl.onSaveClick()">
+            {{ ::'SITES_CREATE_CREATE' | translate }}
+        </md-button>
+    </div>
+
+    <!--
+    <div class="layout-row layout-align-start-center tm16" ng-if="$ctrl.pipMedia('gt-sm')">
+        <md-button iqs-test-back class="md-primary md-raised w-stretch flex lm0 rm8 bm0" ng-click="$ctrl.onCancel()" >
+            {{ ::'SITES_CREATE_BACK' | translate }}
+        </md-button>
+        <md-button iqs-test-next class="md-primary md-raised w-stretch flex lm8 rm0 bm0" ng-disabled="$ctrl.isDisabled()" type="submit" xxxng-click="$ctrl.onSaveClick()">
+            {{ ::'SITES_CREATE_CREATE' | translate }}
+        </md-button>
+    </div>
+    -->
+</form>

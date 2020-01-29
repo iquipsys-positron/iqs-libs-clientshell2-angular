@@ -1,0 +1,102 @@
+<div class="aux-btn-close pointer" ng-click="$ctrl.closeAuxPanel()" ng-if="!$ctrl.hideButton">
+    <md-icon md-svg-icon="icons:cross"></md-icon>
+</div>
+
+<div class="text-title">
+    {{ ::'INCIDENT_TITLE' | translate }}
+</div>
+
+<md-list class="pip-ref-list insidents-list pip-scroll-y bp0 tp0" ng-if="$ctrl.state == 'data'" pip-selected="$ctrl.selectedIndex"
+    pip-select="$ctrl.selectItem($event.index)">
+
+    <md-list-item class="pip-ref-list-item pointer lp16 tp0 pip-selectable" ng-repeat="item in $ctrl.collection track by item.id"
+        md-ink-ripple>
+        <div class="layout-row layout-align-start-start pip-ref-list-item-clicked" ng-click="$ctrl.onDetails(item)">
+            <pip-avatar class="pip-face pip-pic" pip-rebind="true" pip-id="item.ref_id" pip-name="item.ref_name">
+            </pip-avatar>
+            <div class="pip-content divider-bottom">
+                <div class="layout-row layout-align-start-start bm4">
+                    <div class="flex">
+                        <p class="text-subhead2 incidents-description text-overflow">
+                            {{ ::item.description }}
+                        </p>
+                    </div>
+                    <div class="incidents-icon flex-fixed">
+                        <md-icon md-svg-icon="icons:stop" ng-if="item.severity == $ctrl.severityHigh" class="color-error">
+                        </md-icon>
+                    </div>
+                </div>
+                <div class="layout-row layout-align-start-start bm4">
+                    <div class="text-body1 incidents-subtitle text-overflow flex">
+                        {{ ::item.object.name }}
+                    </div>
+                </div>
+                <div class="layout-row layout-align-start-start">
+                    <div class="text-body1 incidents-time flex-fixed">
+                        {{ item.timeString }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-list-item>
+
+    <md-list-item class="pip-ref-list-item pointer iqs-ref-list-button divider-bottom" md-ink-ripple>
+        <md-button class="md-accent lp8 rp8" ng-click="$ctrl.onCloseAll()" ng-disabled="!$ctrl.accessConfig.incidentClose || $ctrl.transactionAll.busy()">
+            {{ 'Закрыть все' }}
+        </md-button>
+        <div class="flex"></div>
+        <md-button class="md-accent lm16 lp8 rp8" ng-if="$ctrl.total > $ctrl.shortIncidentListCount && $ctrl.hideAll" ng-click="$ctrl.onShowAll()"
+            ng-disabled="$ctrl.transactionAll.busy()">
+            {{ ::'INCIDENT_SHOW_ALL' | translate }}
+        </md-button>
+        <md-button class="md-accent lm16 rm16 lp8 rp8" ng-if="$ctrl.total > $ctrl.shortIncidentListCount && !$ctrl.hideAll" ng-click="$ctrl.onShowAll()"
+            ng-disabled="$ctrl.transactionAll.busy()">
+            {{ ::'INCIDENT_HIDE_ALL' | translate }}
+        </md-button>
+    </md-list-item>
+
+</md-list>
+
+<div class="insidents-list pip-scroll-y layout-column bp0 tp0 flex" ng-if="$ctrl.state == 'empty'">
+    <div class="layout-column layout-align-center-center flex iqs-empty">
+        <div class="pip-empty layout-column layout-align-center-center" xxxstyle="display: block; height: calc(100%);">
+            <img src="images/empty/empty.svg" class="pip-pic" style="display: block;">
+            <div class="text-title text-center tm16">
+                {{ ::'INCIDENTS_DATA_EMPTY_TITLE' | translate }}
+            </div>
+            <div class="text-subhead1 text-center">
+                {{ ::'INCIDENTS_DATA_EMPTY_SUBTITLE' | translate }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="iqs-footer" ng-if="$ctrl.accessConfig.incidentConfig">
+    <md-list class="pip-ref-list">
+        <md-list-item class="pip-ref-list-item layout-row md-list-item layout-align-start-start" md-ink-ripple ng-click="$ctrl.onConfigure()">
+            <div class="pip-content">
+                <div class="text-body1 text-overflow">
+                    {{ ::'INCIDENT_BUTTON_OPTIONS' | translate }}
+                </div>
+            </div>
+            <div class="flex-fixed">
+                <md-icon class="m0 flex-fixed" md-svg-icon="icons:chevron-right"></md-icon>
+            </div>
+        </md-list-item>
+    </md-list>
+</div>
+<!--  do not have access -->
+<div class="iqs-footer tp4" ng-if="!$ctrl.accessConfig.incidentConfig">
+    <md-list class="pip-ref-list">
+        <md-list-item class="pip-ref-list-item layout-row md-list-item layout-align-start-start">
+            <div class="pip-content">
+                <div class="text-body1 text-overflow color-secondary-text tp2">
+                    {{ ::'INCIDENT_BUTTON_OPTIONS' | translate }}
+                </div>
+            </div>
+            <div class="tp8 flex-fixed color-secondary-text">
+                <md-icon class="m0 flex-fixed" md-svg-icon="icons:chevron-right"></md-icon>
+            </div>
+        </md-list-item>
+    </md-list>
+</div>

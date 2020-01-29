@@ -1,0 +1,20 @@
+<div class="iqs-horizontal-bars-container no-data {{ $ctrl.class }} tp16">
+    <div ng-repeat="bar in $ctrl.barElements" class="iqs-horizontal-bar bm16" ng-click="$ctrl.onDetails(bar)"
+         ng-style="{ 'background-color': bar.color || $ctrl.colors[$index%$ctrl.colors.length], 'width': bar.width + '%' }">
+         <div class="iqs-bar-label text-overflow" ng-class="{'white-color': bar.width > 10}">{{ bar.label || bar.key }}</div>
+         <div class="iqs-bar-value" ng-class="{'white-color': bar.width > 50}" ng-if="!$ctrl.type">{{ bar.display || bar.value }}</div>
+         <div class="iqs-bar-value" ng-class="{'white-color': bar.width > 50}" ng-if="$ctrl.type == 'speed'">{{ bar.display || 0 }} {{ 'KM_IN_H' | translate }}</div>
+         <div class="iqs-bar-value" ng-class="{'white-color': bar.width > 50}" ng-if="$ctrl.type == 'distance'">{{ bar.display || 0 }} {{ 'KM' | translate }}</div>
+         <div class="iqs-bar-value" ng-class="{'white-color': bar.width > 50}" ng-if="$ctrl.type && $ctrl.type != 'distance' && $ctrl.type != 'speed'">
+             <span ng-if="bar.display.hours && bar.display.hours > 0">{{ bar.display.hours }} {{ 'HOURS' | translate }}</span> 
+             <span ng-if="bar.display.minutes && bar.display.minutes > 0"> {{ bar.display.minutes }} {{ 'MINUTES' | translate }}</span>
+             <span>{{ bar.display.seconds || 0 }} {{ 'SECONDS' | translate }}</span>
+        </div>
+        <div class="w-stretch iqs-bar-backdrop"></div>
+    </div>
+    <div class="no-data-container layout-row layout-align-center-center">
+        <div class="flex empty-text">
+            {{ 'HORIZONTAL_BARS_NO_DATA' | translate }}
+        </div>
+    </div>
+</div>

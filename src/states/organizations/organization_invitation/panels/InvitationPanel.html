@@ -1,0 +1,90 @@
+<form name="form" novalidate autocomplete="off">
+    <md-progress-linear md-mode="indeterminate" class="dialog-progress-linear" ng-show="$ctrl.transaction.busy()">
+    </md-progress-linear>
+    <div class="pip-body {{$ctrl.pipMedia('gt-sm') ? 'p24' : 'p16' }}">
+
+
+        <h2 class="text-center bm24 lm24 rm24">
+            {{:: 'SITES_QUICK_START_INVITATION_TITLE' | translate}}
+        </h2>
+
+        <p class="text-body1 bm16 iqs-info">
+            {{:: 'SITES_QUICK_START_INVITATION_SUBTITLE' | translate}}
+        </p>
+
+
+        <div style="height:156px;" class="bm16">
+            <div class="layout-row layout-align-start-center h48" ng-repeat="people in $ctrl.peoples">
+
+                <md-icon md-svg-icon="icons:person" class="flex-fixed rm16 m0" ng-if="people.id">
+                </md-icon>
+                <md-icon md-svg-icon="icons:message" class="flex-fixed rm16 m0" ng-if="!people.id">
+                </md-icon>
+                <div class="flex text-body1 text-overflow rm16">
+                    {{ $ctrl.getItemText(people) }}
+                </div>
+                <md-button class="md-icon-button flex-fixed m0" ng-click="$ctrl.delPeople($index)">
+                    <md-icon md-svg-icon="icons:cross" class="flex-fixed">
+                    </md-icon>
+                </md-button>
+            </div>
+
+            <div class="layout-row tm8" ng-if="$ctrl.peoples.length < 3">
+                <md-icon md-svg-icon="icons:person-message" class="flex-fixed rm16 lm0 bm0 tm8">
+                </md-icon>
+                <md-autocomplete iqs-test-people-name class="flex iqs-without-label" md-input-name="people"
+                                 md-selected-item="$ctrl.people" md-search-text="$ctrl.searchText" md-items="item in $ctrl.querySearch($ctrl.searchText)"
+                                 md-selected-item-change="$ctrl.onItemChange()" pip-input-blur="$ctrl.onItemBlur()"
+                                 md-item-text="$ctrl.getItemText(item)" ng-keydown="$ctrl.onKeyDown($event)"
+                                 md-no-cache="true" md-delay="400" md-floating-label="{{::'SITES_CREATE_INVITE_PEOPLE_PLACEHOLDER' | translate}}">
+                    <md-item-template>
+                        <span ng-if="item.name && item.login">
+                            {{ item.name + ' (' + item.login + ')' }}
+                        </span>
+                        <span ng-if="!(item.name && item.login)">
+                            {{ item.name || item.login }}
+                        </span>
+                    </md-item-template>
+
+                    <div ng-messages="!$ctrl.getPeopleValidate()" role="alert">
+                        <div ng-if="!$ctrl.getPeopleEmailValidate()">{{ 'ACCOUNTT_EMAIL_VALIDATE_ERROR' | translate }}</div>
+                        <div ng-if="!$ctrl.getPeopleUniqueValidate()">{{ 'ACCOUNTT_EMAIL_UNIQUE_ERROR' | translate }}</div>
+                    </div>
+                </md-autocomplete>
+                <md-button iqs-test-people-add class="md-icon-button flex-fixed m0" ng-if="$ctrl.peoples.length < 3"
+                           ng-click="$ctrl.addPeople($index)" ng-disabled="!$ctrl.getPeopleValidate() || $ctrl.peopleIsEmpty()">
+
+                    <md-icon md-svg-icon="icons:plus" class="flex-fixed">
+                    </md-icon>
+                </md-button>
+            </div>
+        </div>
+
+        <p class="color-secondary-text m0" style="height:52px;">
+            <span ng-if="$ctrl.peoples.length > 0">{{:: 'SITES_CREATE_INVITE_PEOPLE1' | translate}}</span>
+        </p>
+    </div>
+
+    <div class="pip-footer {{$ctrl.pipMedia('gt-sm') ? 'p24' : 'p16' }} tp0">
+        <div ng-if="!$ctrl.pipMedia('gt-sm')">
+            <md-button iqs-test-cancel class="md-primary md-raised w-stretch flex lm0 rm0 bm16" ng-disabled="$ctrl.transaction.busy()"
+                       ng-click="$ctrl.onSkip()">
+                {{ ::'SITES_INVITATION_SKIP_BUTTON' | translate }}
+            </md-button>
+            <md-button iqs-test-next class="md-primary md-raised w-stretch flex lm0 rm0 bm0" ng-disabled="$ctrl.transaction.busy() || !$ctrl.getPeopleValidate()"
+                       ng-click="$ctrl.onSaveInvitation()">
+                {{ ::'SITES_INVITATION_CREATE_BUTTON' | translate }}
+            </md-button>
+        </div>
+        <div class="layout-row layout-align-start-center" ng-if="$ctrl.pipMedia('gt-sm')">
+            <md-button iqs-test-cancel class="md-primary md-raised w-stretch flex lm0 rm8 bm0" ng-disabled="$ctrl.transaction.busy()"
+                       ng-click="$ctrl.onSkip()">
+                {{ ::'SITES_INVITATION_SKIP_BUTTON' | translate }}
+            </md-button>
+            <md-button iqs-test-next class="md-primary md-raised w-stretch flex lm8 rm0 bm0" ng-disabled="$ctrl.transaction.busy() || !$ctrl.getPeopleValidate()"
+                       ng-click="$ctrl.onSaveInvitation()">
+                {{ ::'SITES_INVITATION_CREATE_BUTTON' | translate }}
+            </md-button>
+        </div>
+    </div>
+</form>

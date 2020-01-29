@@ -1,0 +1,111 @@
+
+.iqs-global-search-panel {
+    width: 100%;
+    display: block;
+    
+    md-autocomplete, md-autocomplete-wrap {
+        height: 48px;
+        border-radius: 4px;
+        input {
+            height: 48px;
+        }
+    }  
+
+    .iqs-search-unactive {
+      background-color: rgba(0, 0, 0, 0.04);
+      box-shadow: none;
+      .md-whiteframe-1dp, .md-whiteframe-z1 {
+          box-shadow: none;
+      }
+    }
+
+    .pip-search-container {
+        position: relative;
+        height: 48px;
+        width: 100%;
+
+        .md-icon-button {
+            position: absolute; 
+            top: 4px;
+        }
+        .search-button {
+            left: 0px;
+            top: 4px;
+            z-index: 56;
+        }
+        .pip-combobox {
+            input {
+                padding: 0px 0px 0px 48px;
+            }
+        }
+
+    }
+    .pip-search-container.pip-search-default {
+        .down-button {
+            right: 0px;
+            top: 4px;
+        }
+        md-autocomplete {
+            button {
+                right: 48px;
+            }
+        }  
+        .pip-combobox {
+            input {
+                padding: 0 48px 0px 48px;
+            }
+        }              
+    }
+
+    .iqs-search-backdrop-panel {
+        position: absolute; 
+        z-index: 58;
+        top: 0px;
+        left: 0px; 
+        height: 48px;
+        width: 100%; 
+    }
+
+    .iqs-search-default-panel {
+        position: absolute; 
+        background-color: $color-content;
+        z-index: 58;
+        top: 48px; 
+        width: 100%; 
+        min-height: 32px; 
+        max-height: 300px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+
+        .pip-focusable.md-focused.md-focused-opacity {
+            background-color: rgb(238, 238, 238)!important;
+        }
+    }
+
+}
+
+.iqs-search-backdrop {
+  z-index: 57;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+body.pip-windows .md-autocomplete-suggestions-container ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; }
+
+body.pip-windows .md-autocomplete-suggestions-container ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+
+body.pip-windows .md-autocomplete-suggestions-container ::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey; 
+}
+
+.iqs-global-search-menu {
+    background: rgba(250,250,250,1);
+}

@@ -1,0 +1,56 @@
+.iqs-organizations {
+    pip-card {
+        .pip-body.iqs-list-container {
+            padding: 24px 8px 8px 8px;
+        }
+    }
+    .iqs-card {
+        @include flex();
+        @include flex-direction(column);
+        @include flex-shrink();
+        @include border-radius();
+        @include shadow-card();
+        z-index: 10;
+        position: relative;
+        background-color: $color-content;
+        box-shadow: $box-shadow;
+        margin: 24px;
+        padding-bottom: 1px;
+        padding-left: 1px;
+        padding-right: 1px;
+        padding-top: 1px;
+    }
+}
+
+.iqs-organizations.pip-card-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pip-gt-sm {
+    .iqs-organizations {
+        .pip-card {
+            width: 600px !important;
+        }
+    }
+}
+
+.pip-xs,
+.pip-sm {
+    .iqs-organizations {
+        .pip-card {
+            margin: 0 auto;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            .pip-body.iqs-list-container {
+                padding: 16px 0px 0px 0px !important;
+            }
+        }
+    }
+}

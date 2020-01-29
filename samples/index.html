@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="no-scroll">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Tracker shell</title>
+
+    <link rel="stylesheet" href="../lib/pip-webui-lib.css" />
+    <link rel="stylesheet" href="../lib/pip-webui-lib-optional.css" />
+    <link rel="stylesheet" href="../lib/pip-webui.css" /> 
+    <link rel="stylesheet" href="../lib/pip-suite.css" />
+    <link rel="stylesheet" href="../dist/iqt-tracker-shell.css"/>
+    
+ <link rel="stylesheet" href="../lib/pip-admin-system.css" />
+    <link rel="stylesheet" href="styles.css"/>
+
+   
+   
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="../lib/pip-webui-lib.js"></script>
+    <script src="../lib/pip-webui-lib-optional.js"></script>
+    <script src="../lib/pip-webui.js"></script>
+    <script src="../lib/pip-suite.js"></script>
+    <script src="../lib/pip-admin-system.js"></script>
+
+    <script src="../dist/iqt-tracker-shell.js"></script>
+
+    <script src="pages/landing.js"></script>
+    
+    <script src="pages/home.js"></script>
+    <script src="pages/homeTabs.js"></script>
+    <script src="config.js"></script>
+    <script src="index.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+</head>
+
+<body ng-app='appSamples' ng-controller="pipSampleController as mainCtrl" class="layout-column">
+    <iqt-tracker-shell ng-if="!mainCtrl.isAuth() || mainCtrl.identity.id"></iqt-tracker-shell>
+</body>
+
+
+</html>

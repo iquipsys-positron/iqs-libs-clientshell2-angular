@@ -1,0 +1,32 @@
+@import './panels/GlobalHelpPanel';
+@import './panels/GlobalHelpListPanel';
+@import './panels/GlobalHelpDetailsPanel';
+@import './panels/GlobalHelpGuidesPanel';
+.iqs-main {
+    .iqs-global-help-panel {
+        .iqs-empty {
+            .pip-empty {
+                .pip-pic {
+                    margin: 0 auto;
+                    padding-top: 24px;
+                    width: 250px !important;
+                    height: 250px !important;
+                    min-height: 250px !important;
+                }
+                .pip-actions {
+                    margin-top: 16px !important;
+                }
+                .text-title {
+                    padding: 16px
+                }
+                .text-subhead1 {
+                    padding: 16px
+                }
+            }
+        }
+        .text-title {
+            line-height: 24px;
+            padding: 16px 48px 16px 77px;
+        }
+    }
+}

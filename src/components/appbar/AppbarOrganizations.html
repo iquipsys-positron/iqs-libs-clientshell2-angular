@@ -1,0 +1,28 @@
+<md-menu md-position-mode="target bottom" ng-if="$ctrl.currentOrganization" ng-disabled="$ctrl.busy">
+    <md-button aria-label="Organizations menu" ng-click="$mdMenu.open()">
+        <div class="flex layout-row">
+            <md-icon md-menu-origin md-svg-icon="iqs:organization"></md-icon>
+            <div class="flex lp8">{{ $ctrl.currentOrganization.name }}</div>
+            <md-icon ng-if="!$mdMenuIsOpen" md-menu-origin md-svg-icon="webui-icons:triangle-down"></md-icon>
+            <md-icon ng-if="$mdMenuIsOpen" md-menu-origin md-svg-icon="webui-icons:triangle-up"></md-icon>
+        </div>
+    </md-button>
+    <md-menu-content width="4" class="iqs-appbar-organizations">
+        <md-menu-item ng-repeat="organization in $ctrl.organizations track by $index">
+            <md-button ng-click="$ctrl.onOrganizationClick(organization.id)" ng-class="{'active': organization.id === $ctrl.currentOrganization.id}">
+                {{ ::organization.name | translate }}
+            </md-button>
+        </md-menu-item>
+        <md-divider></md-divider>
+        <md-menu-item ng-if="$ctrl.canAddOrganization">
+            <md-button ng-click="$ctrl.onAddClick()">
+                {{ ::'NEW_SITE' | translate }}
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="$ctrl.onSettingsClick()">
+                {{ ::'SITES_SETTINGS' | translate }}
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

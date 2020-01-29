@@ -1,0 +1,20 @@
+
+.iqs-multiselect-dialog {
+    .iqs-entity-select {
+        background-color: rgba(158, 158, 158, 0.2);
+    }   
+
+    .pip-content.content-single {
+        padding-bottom: 25px!important;
+        padding-top: 26px!important;
+    }
+
+    .pip-ref-list {
+        .pip-ref-list-item {
+            .pip-content {
+                max-width: calc(100% - 88px);
+            }
+        }
+    }
+
+}

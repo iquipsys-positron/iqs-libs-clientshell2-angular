@@ -1,0 +1,48 @@
+<div class="iqs-organizations pip-card-container pip-outer-scroll pip-entry">
+    <pip-card>
+        <div class="pip-body">
+            <h2 class=" bm24">
+                {{:: 'SITE_CONNECTION_TITLE' | translate}}
+            </h2>
+            <div class="" ng-if="!$ctrl.end">
+
+                <p class="color-secondary-text">
+                    {{:: 'SITE_CONNECTION_SUBTITLE' | translate}}
+                </p>
+                <md-input-container>
+                    <label>{{:: 'SITE_CONNECTION_CODE' | translate}}</label>
+                    <input ng-model="$ctrl.code" ng-change="$ctrl.error=null" />
+                    <div class="color-error hint" ng-if="$ctrl.error">
+                        {{ $ctrl.error | translate}}
+                    </div>
+                </md-input-container>
+
+                <md-button class="md-primary md-raised w-stretch flex lm0 rm0" ng-disabled="!$ctrl.code || $ctrl.error"
+                           ng-click="$ctrl.sendCode()">
+                    {{:: 'SITE_CONNECTION_SEND_CODE' | translate}}
+                </md-button>
+            </div>
+            <div class="" ng-if="$ctrl.end">
+
+                <p class="color-secondary-text">
+                    {{ ::'SITE_CONNECTION_SUBTITLE_END' | translate }} {{ $ctrl.code }} {{
+                    ::'SITE_CONNECTION_SUBTITLE_END1' | translate }}
+                </p>
+                <p class="color-secondary-text">
+                    {{ ::'SITE_CONNECTION_SUBTITLE_END2' | translate}}
+                </p>
+
+                <md-button class="md-primary md-raised w-stretch flex lm0 rm0 bm0" ng-if="$ctrl.goMonitoring" ng-click="$ctrl.back()">
+                    {{ ::'SITE_CONNECTION_BACK' | translate }}
+                </md-button>
+
+                <md-button class="md-primary md-raised w-stretch flex lm0 rm0 bm0" ng-if="!$ctrl.goMonitoring" ng-click="$ctrl.signout()">
+                    {{ ::'SITE_CONNECTION_BACK_SIGNIN' | translate }}
+                </md-button>
+            </div>
+
+
+        </div>
+
+    </pip-card>
+</div>

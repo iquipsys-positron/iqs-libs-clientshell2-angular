@@ -1,0 +1,20 @@
+<div ng-if="title" class='pip-title p24-flex flex-fixed bp16'>
+    {{ title | translate }}
+</div>
+
+<div class='pip-content pip-popover-content lp24-flex rp24-flex text-body1 bm64 pip-scroll' ng-class="{'tm24' : !title }">
+    <div ng-if="image && pipMedia('gt-xs')" class="pip-pic"></div>
+    <pip-markdown pip-text="content" pip-rebind="true"></pip-markdown>
+</div>
+
+<div class="pip-footer lm24-flex rm24-flex position-bottom layout-row layout-align-start-center">
+    <a ng-if="link" target="_blank" href="{{ link }}" class="text-body2 flex">
+        {{:: 'MORE_URL' | translate }}
+    </a>
+    <div ng-if="!link" class="flex"></div>
+
+    <md-button ng-click='onNextClick()' class="rm0">
+        {{:: 'TIPS_CLOSE' | translate }}
+    </md-button>
+
+</div>

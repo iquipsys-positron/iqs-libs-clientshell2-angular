@@ -1,0 +1,33 @@
+<div>
+    <md-list class="sidenav-list p0" pip-focused pip-focused-tabindex="10" pip-with-hidden="true">
+        <md-list-item class="no-border pip-sticky-nav-menu-item p0 pip-focusable" tabindex="-1">
+            <md-button href="/home/index.html" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+                tabindex="-1">
+                <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="webui-icons:home"></md-icon>
+                <div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz iqs-hide-small-text flex  lm16 ">
+                    {{ 'TILE_HOME' | translate }}
+                </div>
+            </md-button>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ng-repeat="app in $ctrl.favourites track by $index" class="no-border pip-sticky-nav-menu-item p0 pip-focusable" tabindex="-1">
+            <md-button ng-click="$ctrl.onClick(app)" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+                tabindex="-1">
+                <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="{{ app.icon }}"></md-icon>
+                <div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz iqs-hide-small-text flex  lm16 ">
+                    {{ app.name[$ctrl.language] }}
+                </div>
+            </md-button>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item class="no-border pip-sticky-nav-menu-item p0 pip-focusable" tabindex="-1">
+                <md-button ng-click="$ctrl.$state.go('signout')" class="layout-row layout-align-start-center pip-button-block iqs-nav-organizations-button"
+                    tabindex="-1">
+                    <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="webui-icons:exit"></md-icon>
+                    <div class="pip-sticky-nav-menu-title pip-sticky-nav-menu-title-moz iqs-hide-small-text flex  lm16 ">
+                        {{ 'TILE_EXIT' | translate }}
+                    </div>
+                </md-button>
+            </md-list-item>
+    </md-list>
+</div>

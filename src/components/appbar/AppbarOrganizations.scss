@@ -1,0 +1,12 @@
+md-menu-content.iqs-appbar-organizations {
+    padding: 0;
+    button {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.87);
+        line-height: 1.25;
+        padding: 8px 10px 4px 16px;
+    }
+    button.active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}

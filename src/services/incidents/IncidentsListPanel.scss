@@ -1,0 +1,115 @@
+.iqs-incidents-list-panel {
+    height: 100%;
+    width: 100%;
+    .aux-btn-close {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+    }
+    .text-title {
+        line-height: 24px;
+        padding: 16px 48px 16px 77px;
+    }
+    .pip-ref-list-item {
+        height: 88px;
+        max-height: 88px;
+        width: calc(100% - 21px);
+        .pip-pic {
+            margin-top: 24px;
+        }
+        .pip-content {
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+    }
+    .insidents-list {
+        overflow-y: auto;
+        height: calc(100% - 56px - 37px);
+        min-height: 144px;
+    }
+    .pip-ref-list-item-clicked {
+        width: 100%;
+    }
+    .iqs-footer {
+        background-color: rgba(0, 0, 0, 0.12);
+        height: 48px;
+        .pip-ref-list {
+            padding: 0px;
+            .pip-ref-list-item {
+                height: 48px;
+                max-height: 48px;
+                min-height: 48px;
+                padding: 0px;
+                width: 100%;
+                .pip-content {
+                    line-height: 16px;
+                    padding: 10px 0px 10px 21px;
+                    margin: 0px;
+                }
+                .md-button {
+                    padding: 0px;
+                }
+            }
+        }
+    }
+    .incidents-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+        margin-top: -2px;
+        md-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+        }
+    }
+    .incidents-time {
+        line-height: 1.2;
+        word-wrap: break-word;
+        color: $color-secondary;
+        margin: 0;
+        margin-right: 20px;
+        text-align: left;
+    }
+    .incidents-subtitle {
+        line-height: 1.2;
+        word-wrap: break-word;
+        color: $color-secondary;
+        margin: 0;
+        margin-right: 16px;
+    }
+    .incidents-description {
+        display: block;
+        display: -webkit-box;
+        max-height: 1.2em;
+        margin: 0 auto;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2em;
+        white-space: normal;
+    }
+}
+
+.pip-sm {
+    .iqs-incidents-list-panel {
+        .insidents-list {
+            overflow-y: auto;
+            height: calc(100% - 56px - 48px);
+            min-height: 144px;
+        }
+    }
+}
+
+.pip-xs {
+    .iqs-incidents-list-panel {
+        .insidents-list {
+            overflow-y: auto;
+            height: calc(100% - 56px - 48px);
+            min-height: 144px;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+import { ObjectState } from "../../data";
+import { SearchResult } from '../../services';
+
+export interface IStatesViewModel {
+    initStates(to: string, filter?: string, successCallback?: (data: ObjectState[]) => void, errorCallback?: (error: any) => void);
+    filterStates(filter: string);
+    updateStates(to?: string, callback?: Function): void;
+    // filterStatesObjects(filter: string);
+    highlightStatesByObjectsName(filter: string): void;
+    filterStatesObjectsSearch(objects: SearchResult[], showUnknown?: boolean);
+    focusByDeviceId(id: string, updateCenter?: boolean, alwaysShow?: boolean, autoFocus?: boolean, isRetro?: boolean): void;
+    focusByObjectId(id: string, updateCenter?: boolean, alwaysShow?: boolean, autoFocus?: boolean, isRetro?: boolean): void;
+    selectByDeviceIds(ids: string[]): void;
+    selectByObjectIds(ids: string[]): void;
+    findByDevice(id: string);
+    unfocusAll(onlyAutoFocus?: boolean): void;
+    unselectAll(): void;
+    selectIndex();
+    statusObject(object: ObjectState): string;
+    getStateByObjectId(id: string): ObjectState;
+    getStateByDeviceId(id: string): ObjectState;
+    getActiveByCategory(category): number;
+    getInactiveByCategory(category): number;
+    isActive(state): boolean;
+    isInCurrentRosters(state): boolean;
+    isOnMapByDeviceId(device_id): boolean;
+    isOnMapByObjectId(object_id: string): boolean;
+    getToTime(): Date;
+    panToObjectByDeviceId(id: string): void;
+    cleanUpAllStates(): void;
+    // reReadRosters(): void;
+    cancelFiltered(): void;
+    isFocused: string;
+    isSelected: boolean;
+    state: string;
+    states: ObjectState[];
+    allStates: ObjectState[];
+    selectedIndex: number;
+    type: string;
+    isSort: boolean;
+    clean(): void;
+}
