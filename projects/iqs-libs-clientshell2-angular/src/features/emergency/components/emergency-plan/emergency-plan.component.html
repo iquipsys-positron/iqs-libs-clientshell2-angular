@@ -1,0 +1,43 @@
+<mat-list class="iqs-emergency-plan-list">
+    <mat-list-item class="iqs-emergency-step" [ngClass]="{'iqs-emergency-step-complete': step?.checked}" *ngFor="let step of getPlan().steps">
+        <div fxLayout="row">
+            <div class="iqs-emergency-plan-counter" (click)="onToggleStep(step)"></div>
+            <div fxFlex="grow">
+                <div (click)="onToggleStep(step)">{{ step?.name }}</div>
+                <!-- actions -->
+                <ng-container *ngIf="step?.actions && step?.actions.length > 0">
+                    <div class="iqs-emergency-plan-action" *ngFor="let action of step?.actions">
+                        <!-- note -->
+                        <ng-container *ngIf="action?.type === 'note'">
+                            {{ action?.params['text'] }}
+                        </ng-container>
+                        <!-- call phone -->
+                        <ng-container *ngIf="action?.type === 'call phone'">
+                            {{ action.params['phone'] }}
+                        </ng-container>
+                        <!-- local link -->
+                        <ng-container *ngIf="action?.type === 'local link'">
+                            <button *ngIf="action?.params['pageTitle']" mat-button color="primary" (click)="onLocalLinkClick(action)">
+                                {{ action?.params['pageTitle'] | translate }}
+                            </button>
+                            <div *ngIf="action?.params['text']">
+                                {{ action.params['text'] }}
+                            </div>
+                        </ng-container>
+                        <!-- global link -->
+                        <ng-container *ngIf="action?.type === 'global link' && action?.params['uri']">
+                            <a [href]="action?.params['uri']" mat-button color="primary" target="_blank">
+                                {{ action?.params['uri'] }}
+                            </a>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </mat-list-item>
+</mat-list>
+<div class="iqs-emergency-plan-actions">
+    <button mat-flat-button *ngIf="isComplete$ | async" color="primary" (click)="onFinish()">
+        {{ 'EMERGENCY_COMPLETE' | translate }}
+    </button>
+</div>

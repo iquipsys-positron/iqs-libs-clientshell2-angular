@@ -1,0 +1,48 @@
+@import '~pip-webui2-themes/variables';
+
+:host {
+    mat-chip pip-picture {
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        margin-left: -12px;
+        margin-right: 12px;
+        img {
+            height: 32px!important;
+            width: 32px!important;
+        }
+    }
+    button[mat-button] {
+        text-transform: uppercase;
+    }
+    /deep/ .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+        line-height: 36px;
+    }
+}
+
+/deep/ .mat-dialog-container {
+    position: relative;
+    .pip-loading {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+@mixin snackbar-mixin($theme) {
+    $warn: map-get($theme, warn);
+    .pip-error-snackbar {
+        background-color: mat-color($warn);
+        min-width: 0;
+        font-weight: 800;
+        .mat-simple-snackbar-action {
+            display: none;
+        }
+    }
+}
+
+@each $class,$theme in $themes {
+    /deep/ .#{$class} {
+        @include snackbar-mixin($theme);
+    }
+}

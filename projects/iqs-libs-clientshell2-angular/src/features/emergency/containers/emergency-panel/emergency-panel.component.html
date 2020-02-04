@@ -1,0 +1,36 @@
+<ng-container [ngSwitch]="state$ | async">
+    <pip-empty-state *ngSwitchCase="'empty'">
+        <pip-empty-state-title [text]="'EMERGENCY_EMPTY' | translate" imageUrl="./assets/empty.svg"></pip-empty-state-title>
+    </pip-empty-state>
+    <pip-empty-state *ngSwitchCase="'progress'">
+        <div class="loader"> <img src="./assets/pre-loading.svg"> </div>
+    </pip-empty-state>
+    <ng-container *ngSwitchCase="'data'">
+        <ng-container [ngSwitch]="panelState$ | async">
+            <ng-container *ngSwitchCase="'List'">
+                <pip-scrollable fxFlex="grow">
+                    <mat-nav-list fxFlex="grow">
+                        <ng-container *ngFor="let plan of plans$ | async">
+                            <mat-list-item (click)="selectPlan(plan)">
+                                <h2 matLine>{{ plan.name }}</h2>
+                                <mat-icon matSuffix>chevron_right</mat-icon>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                        </ng-container>
+                    </mat-nav-list>
+                </pip-scrollable>
+                <mat-nav-list>
+                    <mat-list-item class="iqs-emergency-settings-item">
+                        <span matLine>{{ 'EMERGENCY_SETTINGS' | translate }}</span>
+                        <mat-icon matSuffix>chevron_right</mat-icon>
+                    </mat-list-item>
+                </mat-nav-list>
+            </ng-container>
+            <div *ngSwitchCase="'Details'" fxFlex="grow" fxLayout="column">
+                <ng-container *ngIf="currentPlan$ | async as plan">
+                    <iqs-emergency-plan [plan]="currentPlan$ | async"></iqs-emergency-plan>
+                </ng-container>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,35 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/iqs-libs-clientshell2-angular",
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "@ngrx/effects": "^7.0.0",
+      "@ngrx/store": "^7.0.0",
+      "@ngx-translate/core": "^11.0.1",
+      "angular-2-local-storage": "^2.0.0",
+      "immutable": "^4.0.0-rc.12",
+      "lodash": "^4.17.11",
+      "moment": "^2.23.0",
+      "ngx-cookie-service": "^2.1.0",
+      "ngx-moment": "^3.3.0",
+      "pip-webui2-buttons": "^1.1.3",
+      "pip-webui2-controls": "^1.1.7",
+      "pip-webui2-layouts": "^1.1.10",
+      "pip-webui2-nav": "^1.1.9",
+      "pip-webui2-pictures": "^1.1.5",
+      "pip-webui2-themes": "^1.1.11"
+    }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@ngrx",
+    "@ngx-translate",
+    "angular-2-local-storage",
+    "immutable",
+    "lodash",
+    "moment",
+    "ngx-cookie-service",
+    "ngx-moment",
+    "pip-webui2"
+  ]
+}

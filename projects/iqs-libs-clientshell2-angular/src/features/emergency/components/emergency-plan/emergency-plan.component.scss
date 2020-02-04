@@ -1,0 +1,63 @@
+@import '~pip-webui2-themes/variables';
+
+.iqs-emergency-plan-list {
+    counter-reset: emergency;
+    mat-list-item.iqs-emergency-step {
+        display: flex;
+        counter-increment: emergency;
+        min-height: 48px;
+        height: auto;
+        cursor: pointer;
+        &:not(:first-of-type),
+        .iqs-emergency-plan-action:not(:last-child),
+        .iqs-emergency-plan-action button + div {
+            margin-top: 8px;
+        }
+        .iqs-emergency-plan-counter {
+            margin-right: 8px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            min-width: 24px;
+        }
+        .iqs-emergency-plan-counter::before {
+            content: counter(emergency);
+        }
+    }
+}
+
+.iqs-emergency-plan-actions {
+    text-align: center;
+    margin-top: 8px;
+}
+
+button[mat-button] {
+    text-transform: uppercase;
+}
+
+@mixin iqs-emergency-plan-mixin($theme) {
+    $primary: map-get($theme, primary);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    :host {
+        .iqs-emergency-plan-counter {
+            background-color: mat-color($primary);
+            color: mat-color($primary, default-contrast);
+        }
+        .iqs-emergency-step-complete {
+            text-decoration: line-through;
+            .iqs-emergency-plan-counter {
+                background-color: mat-color($background, 'disabled-button');
+                color: mat-color($foreground, 'disabled');
+            }
+        }
+    }
+}
+
+@each $class, $theme in $themes {
+    .#{$class} {
+        @include iqs-emergency-plan-mixin($theme);
+    }
+}

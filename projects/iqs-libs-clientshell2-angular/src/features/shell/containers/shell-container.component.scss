@@ -1,0 +1,22 @@
+.iqs-shell-organizations-button mat-icon.iqt {
+    line-height: 28px;
+}
+
+.pip-rightnav-header {
+    padding: 12px;
+    cursor: pointer;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    min-height: 56px;
+    .pip-rigntnav-title {
+        margin-left: 0.5em;
+        font-size: 1.2em;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/deep/ mat-sidenav.pip-rightnav {
+    width: 320px!important;
+    max-width: 320px!important;
+}

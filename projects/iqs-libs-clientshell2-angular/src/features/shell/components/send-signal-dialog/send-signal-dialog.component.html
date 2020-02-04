@@ -1,0 +1,69 @@
+<h1 mat-dialog-title class="pip-header">{{ 'SEND_SIGNAL_DIALOG_TITLE' | translate }}</h1>
+<div mat-dialog-content class="pip-content">
+  <mat-progress-bar mode="indeterminate" class="pip-loading" *ngIf="loading$ | async"></mat-progress-bar>
+  <form fxLayout="column" [formGroup]="form">
+    <mat-form-field>
+      <mat-select [placeholder]="'SEND_SIGNAL_TYPE' | translate" formControlName="type">
+        <mat-option *ngFor="let type of signalTypes" [value]="type.value">
+          {{ type.title | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <pip-button-toggle-group>
+      <mat-button-toggle-group [value]="listType">
+        <mat-button-toggle fxFlex="fill" value="objects" (change)="listType = $event.value" [disabled]="loading$ | async">
+          {{ 'SEND_SIGNAL_OBJECTS' | translate }}
+        </mat-button-toggle>
+        <mat-button-toggle fxFlex="fill" value="zones" (change)="listType = $event.value" [disabled]="loading$ | async">
+          {{ 'SEND_SIGNAL_ZONES' | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </pip-button-toggle-group>
+    <mat-form-field *ngIf="listType === 'objects'" style="margin-top: 16px;">
+      <mat-chip-list #chipObjectsList>
+        <mat-chip *ngFor="let object of objects" removable (removed)="remove('object', object)" [disabled]="loading$ | async">
+          <pip-picture resize="false" [src]="serverUrl + '/api/v1/blobs/' + object.id" [letterIcon]="object.name"></pip-picture>
+          {{ object.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <mat-chip *ngFor="let group of groups" removable (removed)="remove('group', group)" [disabled]="loading$ | async">
+          <pip-picture resize="false" [src]="serverUrl + '/api/v1/blobs/' + group.id" [letterIcon]="group.name"></pip-picture>
+          {{ group.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input [placeholder]="'SEND_SIGNAL_OBJECTS_OR_GROUPS' | translate" #objectInput formControlName="object"
+               [matAutocomplete]="autoObjects" [matChipInputFor]="chipObjectsList" cdkFocusInitial>
+      </mat-chip-list>
+      <mat-autocomplete #autoObjects="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let obj of filteredObjects$ | async" [value]="['object', obj]">
+          {{ obj.name }}
+        </mat-option>
+        <mat-option *ngFor="let group of filteredGroups$ | async" [value]="['group', group]">
+          {{ group.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field *ngIf="listType === 'zones'" style="margin-top: 16px;">
+      <mat-chip-list #chipZonesList>
+        <mat-chip *ngFor="let zone of zones" removable (removed)="remove('zone', zone)" [disabled]="loading$ | async">
+          <pip-picture resize="false" [src]="serverUrl + '/api/v1/blobs/' + zone.id" [letterIcon]="zone.name"></pip-picture>
+          {{ zone.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input [placeholder]="'SEND_SIGNAL_ZONES' | translate" #zoneInput formControlName="zone" [matAutocomplete]="autoZones"
+               [matChipInputFor]="chipZonesList">
+      </mat-chip-list>
+      <mat-autocomplete #autoZones="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let zone of filteredZones$ | async" [value]="['zone', zone]">
+          {{ zone.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button matDialogClose [disabled]="loading$ | async">{{ 'SEND_SIGNAL_CANCEL' | translate }}</button>
+  <button mat-button (click)="onSubmit()" [disabled]="disableSendButton">
+    {{ 'SEND_SIGNAL_SEND' | translate }}
+  </button>
+</div>

@@ -1,2 +1,0 @@
-import './CreditCardPanel';
-import './CreditCardPanelString';

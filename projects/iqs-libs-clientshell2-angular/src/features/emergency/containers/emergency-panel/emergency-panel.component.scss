@@ -1,0 +1,23 @@
+@import '~pip-webui2-themes/variables';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    pip-scrollable {
+        overflow-y: auto;
+    }
+}
+
+@mixin iqs-emergency-panel-mixin($theme) {
+    $background: map-get($theme, background);
+    :host .iqs-emergency-settings-item {
+        background-color: map-get($background, 'selected-button');
+    }
+}
+
+@each $class, $theme in $themes {
+    .#{$class} {
+        @include iqs-emergency-panel-mixin($theme);
+    }
+}

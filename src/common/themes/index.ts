@@ -1,2 +1,0 @@
-import './Accent';
-import './Main';

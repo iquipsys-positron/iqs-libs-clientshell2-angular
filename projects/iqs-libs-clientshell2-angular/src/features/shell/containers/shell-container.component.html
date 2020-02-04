@@ -1,0 +1,55 @@
+<pip-root-layout>
+    <pip-rightnav-floating fxLayout="column">
+        <div class="pip-rightnav-header" fxLayout="row" fxLayoutAlign=" center">
+            <mat-icon [ngStyle]="{'opacity': (rightnav.showBack$ | async) ? '1' : '0'}" [disabled]="!(rightnav.showBack$ | async)"
+                      (click)="rightnav.goBackHandler()">arrow_back</mat-icon>
+            <div class="pip-rigntnav-title" fxFlex="grow">{{ rightnav.title$ | async | translate }}</div>
+            <mat-icon (click)="closeRightnav()">close</mat-icon>
+        </div>
+        <ng-container [ngSwitch]="rightnav.state$ | async">
+            <iqs-emergency-panel *ngSwitchCase="'Emergency'"></iqs-emergency-panel>
+            <iqs-help-panel *ngSwitchCase="'Help'" [language]="language$ | async"></iqs-help-panel>
+            <iqs-notifications-panel *ngSwitchCase="'Notifications'"></iqs-notifications-panel>
+        </ng-container>
+    </pip-rightnav-floating>
+    <!-- Content -->
+    <pip-root-content>
+        <!-- Appbar -->
+        <pip-appbar>
+            <pip-nav-icon> </pip-nav-icon>
+            <pip-breadcrumb> </pip-breadcrumb>
+            <div fxFlex></div>
+            <div fxHide.lt-md *ngIf="isAuthorized$ | async">
+                <button class="iqs-shell-organizations-button" mat-button [matMenuTriggerFor]="organizations" #organizationsTrigger="matMenuTrigger"
+                        *ngIf="(organizationsState$ | async) === 'data' && (currentOrganization$ | async)">
+                    <mat-icon fontSet="iqt" fontIcon="iqt-organization"></mat-icon>
+                    <span>{{ (currentOrganization$ | async).name }}</span>
+                    <mat-icon>{{ organizationsTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+                </button>
+                <mat-menu #organizations>
+                    <ng-container *ngFor="let organization of organizations$ | async">
+                        <button mat-menu-item *ngIf="organization.id !== (currentOrganization$ | async)?.id" (click)="changeCurrentOrganization(organization)">{{
+                            organization.name }}</button>
+                    </ng-container>
+                </mat-menu>
+            </div>
+            <pip-primary-actions></pip-primary-actions>
+            <pip-secondary-actions></pip-secondary-actions>
+        </pip-appbar>
+        <!-- Main -->
+        <pip-main-layout-alt fxFlex="grow">
+            <!-- Sidenav -->
+            <pip-sidenav *ngIf="isAuthorized$ | async">
+                <iqs-sidenav [groups]="applicationsGroups$ | async" [organizations]="organizations$ | async" [currentOrganization]="currentOrganization$ | async"
+                             [language]="language$ | async" (changeCurrentOrganization)="changeCurrentOrganization($event)"></iqs-sidenav>
+            </pip-sidenav>
+            <!-- Content -->
+            <pip-main-content>
+                <pip-shadow [visible]="(config$ | async).shadows.top" attachmentSide="top"> </pip-shadow>
+                <pip-shadow [visible]="(config$ | async).shadows.left" attachmentSide="left"></pip-shadow>
+                <pip-shadow [visible]="(config$ | async).shadows.right" attachmentSide="right"></pip-shadow>
+                <router-outlet></router-outlet>
+            </pip-main-content>
+        </pip-main-layout-alt>
+    </pip-root-content>
+</pip-root-layout>
