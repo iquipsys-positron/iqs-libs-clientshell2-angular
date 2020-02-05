@@ -14,9 +14,11 @@ import { IqsSidenavComponent } from './sidenav.component';
 import { IqsSidenavModule } from './sidenav.module';
 import { ApplicationConfig } from '../../../applications/models/ApplicationConfig';
 import { IqsApplicationsConfigService } from '../../../applications/services/applications.config.service';
-import { IqsSessionService, SESSION_CONFIG, DEFAULT_SESSION_CONFIG, IqsSessionConfigService } from '../../../session/index';
+import { IqsSessionService, IqsSessionConfigService } from '../../../session/index';
 import { MockSessionService } from '../../../../../mock/src/public_api';
 import { IqsSettingsModule } from '../../../settings/settings.module';
+import { IqsConfigService } from '../../services/config.service';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../../tokens';
 
 
 declare const viewport;
@@ -52,6 +54,7 @@ describe('SidenavComponent', () => {
             providers: [
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 {
                     provide: IqsSessionService,
                     useClass: MockSessionService
@@ -61,8 +64,8 @@ describe('SidenavComponent', () => {
                     useFactory: createApplicationConfig
                 },
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 }
             ]
         })

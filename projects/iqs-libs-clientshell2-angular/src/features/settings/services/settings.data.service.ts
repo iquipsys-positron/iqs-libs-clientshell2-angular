@@ -1,9 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-// import { SessionConfig, SESSION_CONFIG } from '../../session/models/SessionConfig';
 import { IqsSessionConfigService } from '../../session/services/session.config.service';
 import { IqsSessionService } from '../../session/services/session.service';
 
@@ -13,7 +12,6 @@ export class IqsSettingsDataService {
 
     public constructor(
         private http: HttpClient,
-        // @Inject(SESSION_CONFIG) private config: SessionConfig,
         private sessionConfig: IqsSessionConfigService,
         private sessionService: IqsSessionService
     ) { }

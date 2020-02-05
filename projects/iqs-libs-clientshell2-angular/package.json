@@ -1,6 +1,6 @@
 {
   "name": "iqs-libs-clientshell2-angular",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "dependencies": {
     "@ngrx/effects": "^7.1.0",
     "@ngrx/store": "^7.1.0",

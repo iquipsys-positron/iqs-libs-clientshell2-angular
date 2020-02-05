@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
 import { ApplicationConfig } from '../models/index';
 

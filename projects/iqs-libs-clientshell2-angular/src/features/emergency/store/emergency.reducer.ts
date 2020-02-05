@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import findIndex from 'lodash/findIndex';
+import { findIndex } from 'lodash';
 
 import { EmergencyActionType, EmergencyAction } from './emergency.actions';
 import { EmergencyState } from './emergency.state';

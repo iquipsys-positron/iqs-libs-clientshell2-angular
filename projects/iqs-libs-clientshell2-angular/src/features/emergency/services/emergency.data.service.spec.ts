@@ -1,18 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import cloneDeep from 'lodash/cloneDeep';
-import sample from 'lodash/sample';
+import { cloneDeep, sample } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 import { IqsSessionConfigService } from '../../session/services/session.config.service';
 import { IqsEmergencyDataService } from './emergency.data.service';
-import { SESSION_CONFIG } from '../../session/models/index';
-import { TEST_ENVIRONMENT } from '../../shell/tokens';
 import { IqsOrganizationsService } from '../../organizations/services/organizations.service';
 import { EmergencyPlan } from '../models/index';
 import { utils, mockEmergencyPlansProvider, resetToCurrentDefault } from '../../../../mock/src/public_api';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../../shell/tokens';
 
 describe('[Emergency] emergency.data.service', () => {
 
@@ -33,12 +32,9 @@ describe('[Emergency] emergency.data.service', () => {
             providers: [
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 IqsEmergencyDataService,
                 mockEmergencyPlansProvider,
-                {
-                    provide: TEST_ENVIRONMENT,
-                    useValue: true
-                },
                 {
                     provide: IqsOrganizationsService,
                     useValue: {
@@ -48,8 +44,8 @@ describe('[Emergency] emergency.data.service', () => {
                     }
                 },
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: undefined
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
             ],
         })

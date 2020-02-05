@@ -1,8 +1,9 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { RightnavState, ShellConfig, SHELL_CONFIG } from '../models/index';
+import { RightnavState, ShellConfig } from '../models/index';
+import { IqsConfigService } from './config.service';
 
 @Injectable()
 export class IqsShellService {
@@ -13,8 +14,8 @@ export class IqsShellService {
     private _rightnavShowBack$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _showSendSignal: EventEmitter<any>;
 
-    constructor(@Inject(SHELL_CONFIG) config: ShellConfig) {
-        this._config$ = new BehaviorSubject<ShellConfig>(config);
+    constructor(private iqsConfig: IqsConfigService) {
+        this._config$ = new BehaviorSubject<ShellConfig>(this.iqsConfig.config.shell);
         this._rightnavState$ = new BehaviorSubject<RightnavState>(RightnavState.Help);
         this._showSendSignal = new EventEmitter();
     }

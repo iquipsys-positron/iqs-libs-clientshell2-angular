@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogRef } from '@angular/material';
-import { mockProviders } from '@iquipsys/iqs-clients2-shell/mock';
+import { mockProviders } from 'iqs-libs-clientshell2-angular/mock';
 
 import { IqsSendSignalDialogComponent } from './send-signal-dialog.component';
 import { IqsShellModule } from '../../shell.module';

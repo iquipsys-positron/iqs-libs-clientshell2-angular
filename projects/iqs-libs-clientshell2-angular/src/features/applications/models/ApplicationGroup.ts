@@ -1,5 +1,4 @@
-import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
+import { find, findIndex } from 'lodash';
 import { ApplicationTile } from './ApplicationTile';
 
 export class ApplicationGroup {

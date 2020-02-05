@@ -1,7 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription, of, throwError } from 'rxjs';
 
@@ -9,9 +10,10 @@ import { IqsSessionService } from './session.service';
 import { IqsSessionConfigService } from './session.config.service';
 import { IqsSessionDataService } from './session.data.service';
 import { SessionAuthInterceptorProvider } from '../http-interceptors/auth.interceptor';
-import { Session, SESSION_CONFIG, SignupUser, User } from '../models/index';
+import { Session, SignupUser, User } from '../models/index';
 import { users, utils, mockSessionProvider, MockSessionService } from '../../../../mock/src/public_api';
-import { TEST_ENVIRONMENT } from '../../shell/tokens';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { mockShellModuleConfig, SHELL_MERGED_CONFIG } from '../../shell/tokens';
 
 describe('[Session] session.data.service', () => {
 
@@ -25,6 +27,7 @@ describe('[Session] session.data.service', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientModule,
+                RouterModule.forRoot([]),
 
                 LocalStorageModule.withConfig({
                     prefix: 'iqs-clients2',
@@ -35,19 +38,16 @@ describe('[Session] session.data.service', () => {
                 SessionAuthInterceptorProvider,
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 IqsSessionDataService,
                 mockSessionProvider,
-                {
-                    provide: TEST_ENVIRONMENT,
-                    useValue: true
-                },
                 {
                     provide: IqsSessionService,
                     useClass: MockSessionService
                 },
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: undefined
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
             ],
         })
@@ -194,7 +194,7 @@ describe('[Session] session.data.service', () => {
             'name': 'SESSION_NOT_FOUND_ERROR',
             'message': 'Session not found',
         }));
-        subs.add(service.restore(badSession).subscribe(
+        subs.add(service.restore(badSession.id).subscribe(
             () => { },
             (error) => { expect(error.code).toEqual('SESSION_NOT_FOUND_ERROR'); done(); }
         ));

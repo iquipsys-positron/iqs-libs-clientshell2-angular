@@ -1,15 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, TestBed, inject } from '@angular/core/testing';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 import { IqsSettingsDataService } from './settings.data.service';
-import { SESSION_CONFIG, Session, User } from '../../session/models/index';
-import { DEFAULT_SESSION_CONFIG, IqsSessionConfigService } from '../../session/services/session.config.service';
+import { Session, User } from '../../session/models/index';
+import { IqsSessionConfigService } from '../../session/services/session.config.service';
 import { mockSessionProvider, mockSettingsProvider, users, utils, MockSessionService } from '../../../../mock/src/public_api';
 import { IqsSessionService } from '../../session/services/session.service';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../../shell/tokens';
 
 describe('[Settings] settings.data.service with errors', () => {
     let service: IqsSettingsDataService;
@@ -28,12 +30,13 @@ describe('[Settings] settings.data.service with errors', () => {
             providers: [
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 IqsSettingsDataService,
                 mockSessionProvider,
                 mockSettingsProvider,
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
                 {
                     provide: IqsSessionService,
@@ -128,12 +131,13 @@ describe('[Settings] settings.data.service', () => {
             providers: [
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 IqsSettingsDataService,
                 mockSessionProvider,
                 mockSettingsProvider,
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
                 {
                     provide: IqsSessionService,

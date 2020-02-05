@@ -9,13 +9,7 @@ import {
     User,
     Zone
 } from 'iqs-libs-clientshell2-angular';
-import cloneDeep from 'lodash/cloneDeep';
-import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
-import merge from 'lodash/merge';
-import random from 'lodash/random';
-import sample from 'lodash/sample';
-import sampleSize from 'lodash/sampleSize';
+import { cloneDeep, find, findIndex, merge, random, sample, sampleSize } from 'lodash';
 import * as moment_ from 'moment';
 
 import {
@@ -243,7 +237,8 @@ export const userOrganizations = {
     initForUser: (user_id: string) => {
         storedUserOrganizations.push({
             user_id: user_id,
-            organization_ids: sampleSize(storedOrganizations, random(1, storedOrganizations.length - 1)).map((organization: Organization) => organization.id)
+            organization_ids: sampleSize(storedOrganizations, random(1, storedOrganizations.length - 1))
+                .map((organization: Organization) => organization.id)
         });
         localStorage.setItem('mockUserOrganizations', JSON.stringify(storedUserOrganizations));
     },
@@ -288,7 +283,7 @@ export const userOrganizations = {
         if (!organization) { return 1; }
         const sidx = storedUserOrganizations[idx].organization_ids.indexOf(organization_id);
         if (sidx < 0) { return 0; }
-        const user = find(storedUsers, ['id', user_id]);
+        const user: any = find(storedUsers, ['id', user_id]);
         if (user && user.settings.organization_id === organization_id) { return 2; }
         storedUserOrganizations[idx].organization_ids.splice(sidx, 1);
         localStorage.setItem('mockUserOrganizations', JSON.stringify(storedUserOrganizations));

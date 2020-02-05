@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-import sample from 'lodash/sample';
+import { cloneDeep, sample } from 'lodash';
 
 import * as fromEmergencyActions from './emergency.actions';
 import { emergencyReducer, emergencyInitialState } from './emergency.reducer';

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BREAKPOINTS, MediaObserver } from '@angular/flex-layout';
-import { IqsShellService } from '@iquipsys/iqs-clients2-shell';
+import { IqsShellService } from 'iqs-libs-clientshell2-angular';
 import { PipMediaService } from 'pip-webui2-layouts';
 import { PipNavService } from 'pip-webui2-nav';
 

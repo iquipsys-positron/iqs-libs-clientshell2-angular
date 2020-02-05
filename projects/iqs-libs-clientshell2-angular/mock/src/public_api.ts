@@ -1,5 +1,5 @@
-// DO NOT DELETE "SessionConfig" from imports!
-import { TEST_ENVIRONMENT, SESSION_CONFIG, SessionConfig, IqsSessionConfigService } from 'iqs-libs-clientshell2-angular';
+// DO NOT DELETE "ShellModuleConfig" from imports!
+import { IqsSessionConfigService, IqsConfigService, SHELL_MERGED_CONFIG, ShellModuleConfig } from 'iqs-libs-clientshell2-angular';
 import { APP_INITIALIZER } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { CookieService } from 'ngx-cookie-service';
@@ -30,11 +30,7 @@ export const mockProviders = [
     mockSettingsProvider,
     mockOrganizationsProvider,
     mockUsersProvider,
-    mockZonesProvider,
-    {
-        provide: TEST_ENVIRONMENT,
-        useValue: true
-    },
+    mockZonesProvider
 ];
 
 export const mockServices = [
@@ -43,7 +39,7 @@ export const mockServices = [
         provide: APP_INITIALIZER,
         useFactory: mockInit,
         multi: true,
-        deps: [MockInitService, LocalStorageService, SESSION_CONFIG, CookieService, IqsSessionConfigService]
+        deps: [MockInitService, LocalStorageService, IqsConfigService, SHELL_MERGED_CONFIG, CookieService, IqsSessionConfigService]
     },
 ];
 

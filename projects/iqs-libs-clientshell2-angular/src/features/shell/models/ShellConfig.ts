@@ -8,8 +8,6 @@ export class ShellConfig {
     };
 }
 
-export const SHELL_CONFIG = new InjectionToken<ShellConfig>('ShellConfig');
-
 export const defaultShellConfig = <ShellConfig>{
     shadows: {
         top: true,

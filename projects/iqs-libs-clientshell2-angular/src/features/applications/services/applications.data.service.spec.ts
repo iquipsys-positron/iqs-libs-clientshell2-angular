@@ -8,8 +8,10 @@ import { Subscription } from 'rxjs';
 import { IqsApplicationsDataService } from './applications.data.service';
 import { IqsApplicationsConfigService } from './applications.config.service';
 import { Application, ApplicationTile, ApplicationConfig } from '../models/index';
-import { IqsSessionConfigService, SESSION_CONFIG, DEFAULT_SESSION_CONFIG } from '../../session/index';
+import { IqsSessionConfigService } from '../../session/index';
 import { applications, mockApplicationsProvider } from '../../../../mock/src/public_api';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../../shell/tokens';
+import { IqsConfigService } from '../../shell/services/config.service';
 
 export function createApplicationConfig() {
     return new IqsApplicationsConfigService(<ApplicationConfig>{});
@@ -35,14 +37,15 @@ describe('[Applications] applications.data.service', () => {
                 IqsApplicationsDataService,
                 mockApplicationsProvider,
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
                 {
                     provide: IqsApplicationsConfigService,
                     useFactory: createApplicationConfig
                 },
-                IqsSessionConfigService
+                IqsSessionConfigService,
+                IqsConfigService
             ],
         })
             .compileComponents();
@@ -65,7 +68,7 @@ describe('[Applications] applications.data.service', () => {
     });
 
     it('should update application', done => {
-        const app: ApplicationTile = cloneDeep(applications[0]);
+        const app: ApplicationTile = cloneDeep(applications[0]) as ApplicationTile;
         app.description = { 'en': 'new description', 'ru': 'russian description' };
         subs.add(service.updateApplication(app).subscribe(updated => {
             expect(updated).toEqual(app);
@@ -74,7 +77,7 @@ describe('[Applications] applications.data.service', () => {
     });
 
     it('shouldn\'t update not existing application', done => {
-        const app: ApplicationTile = cloneDeep(applications[0]);
+        const app: ApplicationTile = cloneDeep(applications[0]) as ApplicationTile;
         app.id = 'bad_id';
         app.description = { 'en': 'new description', 'ru': 'russian description' };
         subs.add(service.updateApplication(app).subscribe(
@@ -84,7 +87,7 @@ describe('[Applications] applications.data.service', () => {
     });
 
     it('should create application', done => {
-        const app: ApplicationTile = cloneDeep(applications[0]);
+        const app: ApplicationTile = cloneDeep(applications[0]) as ApplicationTile;
         app.id = 'iqs_test_app';
         app.description = { 'en': 'new description', 'ru': 'russian description' };
         subs.add(service.createApplication(app).subscribe(created => {
@@ -94,7 +97,7 @@ describe('[Applications] applications.data.service', () => {
     });
 
     it('shouldn\'t create existing application', done => {
-        const app: ApplicationTile = cloneDeep(applications[0]);
+        const app: ApplicationTile = cloneDeep(applications[0]) as ApplicationTile;
         subs.add(service.createApplication(app).subscribe(
             () => { },
             (error) => { expect(error.code).toEqual('APPLICATION_ALREADY_EXISTS'); done(); }

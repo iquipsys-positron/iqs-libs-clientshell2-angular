@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-import merge from 'lodash/merge';
+import { cloneDeep, merge } from 'lodash';
 
 import * as fromSessionActions from './session.actions';
 import { sessionReducer, sessionInitialState } from './session.reducer';

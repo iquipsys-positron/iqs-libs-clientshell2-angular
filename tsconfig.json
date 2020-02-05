@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "@iquipsys/iqs-clients2-shell": [
-        "dist/iqs-clients2-shell"
+      "iqs-libs-clientshell2-angular": [
+        "dist/iqs-libs-clientshell2-angular"
       ],
-      "@iquipsys/iqs-clients2-shell/*": [
-        "dist/iqs-clients2-shell/*"
+      "iqs-libs-clientshell2-angular/*": [
+        "dist/iqs-libs-clientshell2-angular/*"
       ]
     }
   }

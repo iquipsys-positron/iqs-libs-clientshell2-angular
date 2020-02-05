@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { sample } from 'lodash';
@@ -12,7 +12,7 @@ import { RightnavState } from '../models/index';
 import { IqsShellService } from '../services/index';
 import { IqsSessionService } from '../../session/index';
 import { IqsOrganizationsService } from '../../organizations/index';
-import { users, utils, MockSessionService, MockOrganizationsService, mockProviders } from '@iquipsys/iqs-clients2-shell/mock';
+import { users, utils, MockSessionService, MockOrganizationsService, mockProviders } from 'iqs-libs-clientshell2-angular/mock';
 
 describe('[Shell] containers/shell-container.component', () => {
 
@@ -22,7 +22,7 @@ describe('[Shell] containers/shell-container.component', () => {
 
     let subs: Subscription;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,
@@ -54,7 +54,7 @@ describe('[Shell] containers/shell-container.component', () => {
         fixture.detectChanges();
         element = fixture.nativeElement;
         subs = new Subscription();
-    }));
+    });
 
     afterEach(() => { subs.unsubscribe(); });
 
@@ -139,7 +139,8 @@ describe('[Shell] containers/shell-container.component', () => {
         const sidenavService: PipSidenavService = TestBed.get(PipSidenavService);
         const organizationsService: MockOrganizationsService = TestBed.get(IqsOrganizationsService);
         sidenavService.toggleOpened();
-        component.changeCurrentOrganization(sample(organizationsService.organizations.filter(s => s.name !== organizationsService.current.name)));
+        component.changeCurrentOrganization(sample(organizationsService
+            .organizations.filter(s => s.name !== organizationsService.current.name)) as any);
         fixture.detectChanges();
         const organizationsSpan: HTMLElement = element.querySelector('.iqs-shell-organizations-button span span');
         expect(organizationsSpan.innerText).toEqual(organizationsService.current.name);

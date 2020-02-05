@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 import { PipNavService } from 'pip-webui2-nav';
 
 import { notFoundPageTranslations } from './not-found-page.strings';
-// import { SESSION_CONFIG, SessionConfig } from '../../../session/models/SessionConfig';
 import { IqsSessionConfigService } from '../../../session/services/session.config.service';
 import { WINDOW, WindowWrapper } from '../../../../common/services/window.service';
 
@@ -18,7 +17,6 @@ export class IqsNotFoundPagePageComponent implements OnInit {
     public notFoundActions: any[];
 
     constructor(
-        // @Inject(SESSION_CONFIG) private config: SessionConfig,
         @Inject(WINDOW) private window: WindowWrapper,
         private location: Location,
         private navService: PipNavService,

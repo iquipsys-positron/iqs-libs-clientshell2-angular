@@ -5,8 +5,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
     IqsShellModule,
     IqsShellContainerComponent
-} from '@iquipsys/iqs-clients2-shell';
-import { mockProvidersAndServices } from '@iquipsys/iqs-clients2-shell/mock';
+} from 'iqs-libs-clientshell2-angular';
+import { mockProvidersAndServices } from 'iqs-libs-clientshell2-angular/mock';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AnotherPageModule } from './another-page/another-page.module';

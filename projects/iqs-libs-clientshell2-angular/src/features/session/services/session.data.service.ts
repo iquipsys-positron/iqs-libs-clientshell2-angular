@@ -4,15 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Session, SignupUser } from '../models/index';
-import { IqsSessionConfigService } from './session.config.service';
-import { TEST_ENVIRONMENT } from '../../shell/tokens';
+import { IqsConfigService } from '../../shell/services/config.service';
 
 @Injectable()
 export class IqsSessionDataService {
-    // private RESOURCE_EMAIL_RESEND = '/api/v1/email_settings/resend';
-    // private RESOURCE_EMAIL_VERIFY = '/api/v1/email_settings/verify';
-    // private RESOURCE_RECOVER = '/api/v1/passwords/recover';
-    // private RESOURCE_RESET = '/api/v1/passwords/reset';
+
     private RESOURCE_RESTORE = '/api/v1/sessions/restore';
     private RESOURCE_SIGNIN = '/api/v1/signin';
     private RESOURCE_SIGNOUT = '/api/v1/signout';
@@ -23,20 +19,21 @@ export class IqsSessionDataService {
     private httpBackend: HttpClient;
 
     public constructor(
-        @Inject(TEST_ENVIRONMENT) private isTest: boolean,
         private http: HttpClient,
-        private sessionConfig: IqsSessionConfigService,
+        private iqsConfig: IqsConfigService,
         handler: HttpBackend,
     ) {
-        this.httpBackend = isTest ? http : new HttpClient(handler);
+        this.httpBackend = iqsConfig.config.mock ? http : new HttpClient(handler);
     }
 
     private handleError(response: Response) {
         return throwError(response);
     }
 
+    private get serverUrl() { return this.iqsConfig.get('session.serverUrl'); }
+
     public signin(login: string, password: string): Observable<Session> {
-        const url = this.sessionConfig.serverUrl + this.RESOURCE_SIGNIN;
+        const url = this.serverUrl + this.RESOURCE_SIGNIN;
         const request: any = {
             login: login,
             email: login,
@@ -47,7 +44,7 @@ export class IqsSessionDataService {
     }
 
     public signout(): Observable<Session> {
-        const url = this.sessionConfig.serverUrl + this.RESOURCE_SIGNOUT;
+        const url = this.serverUrl + this.RESOURCE_SIGNOUT;
         const request = {};
 
         return this.http.post<Session>(url, request)
@@ -55,7 +52,7 @@ export class IqsSessionDataService {
     }
 
     public signup(user: SignupUser): Observable<Session> {
-        const url = this.sessionConfig.serverUrl + this.RESOURCE_SIGNUP;
+        const url = this.serverUrl + this.RESOURCE_SIGNUP;
         const request = {
             name: user.name,
             login: user.login || user.email,
@@ -71,7 +68,7 @@ export class IqsSessionDataService {
     }
 
     public restore(session_id: string): Observable<Session> {
-        const url: string = this.sessionConfig.serverUrl + this.RESOURCE_RESTORE;
+        const url: string = this.serverUrl + this.RESOURCE_RESTORE;
         const request = {
             session_id: session_id
         };
@@ -87,13 +84,13 @@ export class IqsSessionDataService {
     }
 
     public readHistory(): Observable<Session[]> {
-        const url: string = this.sessionConfig.serverUrl + this.RESOURCE_HISTORY;
+        const url: string = this.serverUrl + this.RESOURCE_HISTORY;
         return this.http.get<Session[]>(url)
             .pipe(catchError(this.handleError));
     }
 
     public closeAll(): Observable<any> {
-        const url: string = this.sessionConfig.serverUrl + this.RESOURCE_CLOSE_ALL;
+        const url: string = this.serverUrl + this.RESOURCE_CLOSE_ALL;
         return this.http.post(url, null)
             .pipe(catchError(this.handleError));
     }

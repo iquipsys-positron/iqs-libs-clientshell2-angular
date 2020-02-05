@@ -1,6 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-import merge from 'lodash/merge';
-import sample from 'lodash/sample';
+import { cloneDeep, merge, sample } from 'lodash';
 
 import * as fromOrganizationsActions from './organizations.actions';
 import { organizationsReducer, organizationsInitialState } from './organizations.reducer';
@@ -74,7 +72,7 @@ describe('[Organizations] store/reducer', () => {
 
     it('should reduce create organization states', () => {
         const joc = jasmine.objectContaining;
-        const newOrganization = sample(organizations);
+        const newOrganization = sample(organizations) as any;
         newOrganization.name = 'Test organization';
         expect(organizationsReducer(state,
             new fromOrganizationsActions.OrganizationsCreateInitAction(newOrganization)))
@@ -97,7 +95,7 @@ describe('[Organizations] store/reducer', () => {
     });
 
     it('should reduce connect and diconnect organization states', () => {
-        const organization = sample(organizations);
+        const organization = sample(organizations) as any;
         const joc = jasmine.objectContaining;
         const stateWithOrganization = merge(cloneDeep(state), { organizations: [organization] });
         expect(organizationsReducer(

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import cloneDeep from 'lodash/cloneDeep';
-import merge from 'lodash/merge';
+import { cloneDeep, merge } from 'lodash';
 import { Observable } from 'rxjs';
 import { first, filter, debounceTime, map, distinct } from 'rxjs/operators';
 

@@ -15,7 +15,7 @@ import {
     Zone,
     ZonePresence
 } from 'iqs-libs-clientshell2-angular';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 import * as moment_ from 'moment';
 
 const moment = moment_;
@@ -5654,8 +5654,9 @@ const currentObjecStatesDefault: Partial<ObjectState>[] = [
 ];
 
 export let users: User[] = JSON.parse(localStorage.getItem('mockUsers')) || cloneDeep(usersDefault);
-export let organizations: Organization[] = JSON.parse(localStorage.getItem('mockOrganizations')) || cloneDeep(organizationsDefault);
-export let userOrganizations: UserOrganizations[] = JSON.parse(localStorage.getItem('mockUserOrganizations')) || cloneDeep(userOrganizationsDefault);
+export let organizations = (JSON.parse(localStorage.getItem('mockOrganizations')) || cloneDeep(organizationsDefault)) as Organization[];
+export let userOrganizations: UserOrganizations[] = JSON.parse(localStorage.getItem('mockUserOrganizations'))
+    || cloneDeep(userOrganizationsDefault);
 export let sessions: Session[] = JSON.parse(localStorage.getItem('mockSessions')) || [];
 export let applications: Application[] = JSON.parse(localStorage.getItem('mockApplications')) || cloneDeep(applicationsDefault);
 export let notifications: Notification[] = JSON.parse(localStorage.getItem('mockNotifications')) || cloneDeep(notificationsDefault);
@@ -5669,16 +5670,16 @@ export let currentObjectStates: ObjectState[]
 // TODO: all functions should be cloneDeep
 export function resetToCurrentDefault() {
     localStorage.clear();
-    users = cloneDeep(usersDefault);
-    organizations = cloneDeep(organizationsDefault);
-    userOrganizations = cloneDeep(userOrganizationsDefault);
+    users = cloneDeep<any>(usersDefault);
+    organizations = cloneDeep<any>(organizationsDefault);
+    userOrganizations = cloneDeep<any>(userOrganizationsDefault);
     sessions = [];
-    applications = cloneDeep(applicationsDefault);
-    notifications = cloneDeep(notificationsDefault);
-    emergencyPlans = cloneDeep(emergencyPlansDefault);
-    controlObjects = cloneDeep(controlObjectsDefaullt);
-    objectGroups = cloneDeep(objectGroupsDefault);
-    zones = cloneDeep(zonesDefault);
-    currentObjectStates = cloneDeep(currentObjecStatesDefault);
+    applications = cloneDeep<any>(applicationsDefault);
+    notifications = cloneDeep<any>(notificationsDefault);
+    emergencyPlans = cloneDeep<any>(emergencyPlansDefault);
+    controlObjects = cloneDeep<any>(controlObjectsDefaullt);
+    objectGroups = cloneDeep<any>(objectGroupsDefault);
+    zones = cloneDeep<any>(zonesDefault);
+    currentObjectStates = cloneDeep<any>(currentObjecStatesDefault);
     onReset.emit();
 }

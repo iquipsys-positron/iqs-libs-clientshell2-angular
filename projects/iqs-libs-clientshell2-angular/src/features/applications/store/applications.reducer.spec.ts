@@ -1,6 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
-import merge from 'lodash/merge';
+import {cloneDeep, findIndex, merge} from 'lodash';
 
 import * as fromApplicationsActions from './applications.actions';
 import { applicationsReducer, applicationsInitialState } from './applications.reducer';
@@ -43,7 +41,7 @@ describe('[Applications] store/reducer', () => {
 
     beforeEach(() => {
         state = cloneDeep(applicationsInitialState);
-        apps = cloneDeep(applications);
+        apps = cloneDeep(applications) as ApplicationTile[];
     });
 
     beforeAll(() => {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import find from 'lodash/find';
+import { find } from 'lodash';
 import { PipNavService } from 'pip-webui2-nav';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';

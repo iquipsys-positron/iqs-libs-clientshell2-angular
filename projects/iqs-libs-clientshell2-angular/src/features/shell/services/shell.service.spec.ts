@@ -1,13 +1,26 @@
-import cloneDeep from 'lodash/cloneDeep';
+import { TestBed } from '@angular/core/testing';
+import { cloneDeep } from 'lodash';
 
 import { ShellConfig, defaultShellConfig } from '../models/index';
 import { IqsShellService } from './shell.service';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../tokens';
+import { IqsConfigService } from './config.service';
 
-describe('ShellModule', () => {
+describe('ShellService', () => {
     let service: IqsShellService;
 
     beforeEach(() => {
-        service = new IqsShellService(cloneDeep(defaultShellConfig));
+        TestBed.configureTestingModule({
+            providers: [
+                {
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
+                },
+                IqsConfigService,
+                IqsShellService
+            ]
+        });
+        service = TestBed.get(IqsShellService);
     });
 
     it('should subscribe to a config$', (done) => {

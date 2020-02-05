@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { IqsAskDialogComponent, IqsAskDialogData } from '@iquipsys/iqs-clients2-shell';
+import { IqsAskDialogComponent, IqsAskDialogData } from 'iqs-libs-clientshell2-angular';
 import { PipNavService } from 'pip-webui2-nav';
 
 import { anotherPageTranslations } from './another-page.strings';

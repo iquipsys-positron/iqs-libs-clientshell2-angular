@@ -3,8 +3,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule, Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import cloneDeep from 'lodash/cloneDeep';
-import sample from 'lodash/sample';
+import { cloneDeep, sample } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription, Observable, of } from 'rxjs';
 import { filter, last, take } from 'rxjs/operators';
@@ -20,10 +19,12 @@ import {
     SettingsCreateFailureAction,
     SettingsUpdateFailureAction,
 } from '../store/index';
-import { SESSION_CONFIG, User } from '../../session/models/index';
-import { DEFAULT_SESSION_CONFIG, IqsSessionConfigService } from '../../session/services/session.config.service';
+import { User } from '../../session/models/index';
+import { IqsSessionConfigService } from '../../session/services/session.config.service';
 import { mockSessionProvider, mockSettingsProvider, users } from '../../../../mock/src/public_api';
 import { EntityState } from '../../../common/index';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { SHELL_MERGED_CONFIG, mockShellModuleConfig } from '../../shell/tokens';
 
 class MockSettingsDataService {
 
@@ -65,6 +66,7 @@ describe('[Settings] settings.service', () => {
             providers: [
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 IqsSettingsService,
                 {
                     provide: IqsSettingsDataService,
@@ -73,8 +75,8 @@ describe('[Settings] settings.service', () => {
                 mockSessionProvider,
                 mockSettingsProvider,
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 }
             ]
         })

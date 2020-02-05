@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@iquipsys/iqs-clients2-shell';
+import { AuthGuard } from 'iqs-libs-clientshell2-angular';
 
 import { AnotherPageComponent } from './another-page/another-page.component';
 import { ExamplePageComponent } from './example-page/example-page.component';

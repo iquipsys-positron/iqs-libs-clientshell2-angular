@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { IqsShellModule } from '@iquipsys/iqs-clients2-shell';
+import { IqsShellModule } from 'iqs-libs-clientshell2-angular';
 
 import { ExamplePageComponent } from './example-page.component';
 import { ExamplePageModule } from './example-page.module';

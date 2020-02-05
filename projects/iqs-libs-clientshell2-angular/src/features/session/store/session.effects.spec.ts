@@ -3,21 +3,22 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule, Router } from '@angular/router';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { LocalStorageModule, LocalStorageService } from 'angular-2-local-storage';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { Observable } from 'rxjs';
 
 import * as fromSessionActions from './session.actions';
 import { SessionEffects } from './session.effects';
-import { Session, SessionConfig, SESSION_CONFIG, User } from '../models/index';
+import { Session, SessionConfig, User, defaultSessionConfig } from '../models/index';
 import { users, utils, mockSessionProvider, MockSessionService } from '../../../../mock/src/public_api';
 import { SessionAuthInterceptorProvider } from '../http-interceptors/auth.interceptor';
-import { DEFAULT_SESSION_CONFIG, IqsSessionConfigService } from '../services/session.config.service';
+import { IqsSessionConfigService } from '../services/session.config.service';
 import { IqsSessionDataService } from '../services/session.data.service';
 import { IqsSessionService } from '../services/session.service';
-import { TEST_ENVIRONMENT } from '../../shell/tokens';
 import { WINDOW } from '../../../common/services/window.service';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { mockShellModuleConfig, SHELL_MERGED_CONFIG } from '../../shell';
 
 describe('[Session] store/effects', () => {
 
@@ -42,6 +43,7 @@ describe('[Session] store/effects', () => {
                 SessionEffects,
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 provideMockActions(() => actions),
                 IqsSessionDataService,
                 SessionAuthInterceptorProvider,
@@ -51,12 +53,8 @@ describe('[Session] store/effects', () => {
                     useClass: MockSessionService
                 },
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
-                },
-                {
-                    provide: TEST_ENVIRONMENT,
-                    useValue: true
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
                 {
                     provide: WINDOW,
@@ -145,7 +143,7 @@ describe('[Session] store/effects', () => {
     it('SessionRestoreInit$ failure', done => {
         const badSession = cloneDeep(session);
         badSession.id = '11000000000000000000000000000000';
-        actions = new BehaviorSubject(new fromSessionActions.SessionRestoreInitAction(badSession));
+        actions = new BehaviorSubject(new fromSessionActions.SessionRestoreInitAction({ session_id: badSession.id, user_id: '0000' }));
 
         subs.add(effects.SessionRestoreInit$.subscribe(res => {
             expect(res.type).toEqual(fromSessionActions.SessionActionType.SessionRestoreFailure);
@@ -209,7 +207,7 @@ describe('[Session] store/effects', () => {
     });
 
     it('SessionToAuthorizedUrl$', done => {
-        const config: SessionConfig = TestBed.get(SESSION_CONFIG);
+        const config: IqsSessionConfigService = TestBed.get(IqsSessionConfigService);
         const w = TestBed.get(WINDOW);
         actions = new BehaviorSubject(new fromSessionActions.SessionSigninSuccessAction(session));
 
@@ -220,7 +218,7 @@ describe('[Session] store/effects', () => {
     });
 
     it('SessionToUnauthorizedUrl$ signout success', done => {
-        const config: SessionConfig = TestBed.get(SESSION_CONFIG);
+        const config: IqsSessionConfigService = TestBed.get(IqsSessionConfigService);
         const w = TestBed.get(WINDOW);
         actions = new BehaviorSubject(new fromSessionActions.SessionSignoutSuccessAction());
 
@@ -231,7 +229,7 @@ describe('[Session] store/effects', () => {
     });
 
     it('SessionToUnauthorizedUrl$ restore failure', done => {
-        const config: SessionConfig = TestBed.get(SESSION_CONFIG);
+        const config: IqsSessionConfigService = TestBed.get(IqsSessionConfigService);
         const router: Router = TestBed.get(Router);
         const w = TestBed.get(WINDOW);
         actions = new BehaviorSubject(new fromSessionActions.SessionRestoreFailureAction({ error: 'error' }));

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
 import { ShellConfig, defaultShellConfig } from './models/index';
 import { IqsShellService } from './services/shell.service';

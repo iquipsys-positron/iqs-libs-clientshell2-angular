@@ -3,4 +3,4 @@ export * from './containers/index';
 export * from './models/index';
 export * from './services/index';
 export { IqsShellModule } from './shell.module';
-export { ShellModuleConfig, TEST_ENVIRONMENT } from './tokens';
+export { ShellModuleConfig, SHELL_MODULE_CONFIG, defaultShellModuleConfig, mockShellModuleConfig, SHELL_RUNTIME_CONFIG, SHELL_MERGED_CONFIG } from './tokens';

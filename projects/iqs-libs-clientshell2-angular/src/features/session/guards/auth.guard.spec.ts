@@ -5,12 +5,13 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { CookieService } from 'ngx-cookie-service';
 
 import { IqsSessionService } from '../services/session.service';
-import { SESSION_CONFIG, SessionConfig } from '../models/index';
-import { DEFAULT_SESSION_CONFIG, IqsSessionConfigService } from '../services/session.config.service';
+import { IqsSessionConfigService } from '../services/session.config.service';
 import { users, utils, mockSessionProvider, MockSessionService } from '../../../../mock/src/public_api';
 
 import { WINDOW, WindowWrapper } from '../../../common/services/window.service';
 import { AuthGuard } from './auth.guard';
+import { IqsConfigService } from '../../shell/services/config.service';
+import { mockShellModuleConfig, ShellModuleConfig, SHELL_MERGED_CONFIG } from '../../shell/tokens';
 
 @Component({
     selector: 'iqs-mock',
@@ -37,14 +38,15 @@ describe('[Session] guards/auth', () => {
                 AuthGuard,
                 CookieService,
                 IqsSessionConfigService,
+                IqsConfigService,
                 mockSessionProvider,
                 {
                     provide: IqsSessionService,
                     useClass: MockSessionService
                 },
                 {
-                    provide: SESSION_CONFIG,
-                    useValue: DEFAULT_SESSION_CONFIG
+                    provide: SHELL_MERGED_CONFIG,
+                    useValue: mockShellModuleConfig
                 },
                 {
                     provide: WINDOW,
@@ -64,9 +66,9 @@ describe('[Session] guards/auth', () => {
         const sessionService: MockSessionService = TestBed.get(IqsSessionService);
         const router: Router = TestBed.get(Router);
         const w: WindowWrapper = TestBed.get(WINDOW);
-        const config: SessionConfig = TestBed.get(SESSION_CONFIG);
+        const config: ShellModuleConfig = TestBed.get(SHELL_MERGED_CONFIG);
         expect(await router.navigate(['example'])).toBeFalsy();
-        expect(w.location.href).toEqual(w.location.origin + config.unautorizedUrl + '?from=' + router.url);
+        expect(w.location.href).toEqual(w.location.origin + config.session.unautorizedUrl + '?from=' + router.url);
         sessionService.init(utils.sessions.create(users[0]));
         expect(await router.navigate(['example'])).toBeTruthy();
     });

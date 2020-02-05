@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Organization } from '../models/index';
-// import { SessionConfig, SESSION_CONFIG } from '../../session/models/SessionConfig';
 import { IqsSessionConfigService } from '../../session/services/session.config.service';
 import { DataPage } from '../../../common/index';
 
@@ -14,7 +13,6 @@ export class IqsOrganizationsDataService {
 
     public constructor(
         private http: HttpClient,
-        // @Inject(SESSION_CONFIG) private config: SessionConfig,
         private sessionConfig: IqsSessionConfigService
     ) { }
 

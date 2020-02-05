@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatDialogRef, MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import find from 'lodash/find';
-import uniq from 'lodash/uniq';
+import { find, uniq } from 'lodash';
 import { Subscription, BehaviorSubject, Observable, throwError } from 'rxjs';
 import { startWith, map, switchMap } from 'rxjs/operators';
 

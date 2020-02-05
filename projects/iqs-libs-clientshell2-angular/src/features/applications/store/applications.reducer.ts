@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import findIndex from 'lodash/findIndex';
+import { findIndex } from 'lodash';
 
 import { ApplicationsActionType, ApplicationsAction } from './applications.actions';
 import { ApplicationsState } from './applications.state';

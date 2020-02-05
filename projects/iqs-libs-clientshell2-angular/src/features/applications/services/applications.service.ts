@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
+import { cloneDeep, findIndex } from 'lodash';
 import { Observable } from 'rxjs';
 import { withLatestFrom, map, filter, first, distinctUntilKeyChanged } from 'rxjs/operators';
 

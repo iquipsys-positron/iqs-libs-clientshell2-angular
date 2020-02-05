@@ -8,7 +8,7 @@ import {
     transition,
 } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
-import find from 'lodash/find';
+import { find } from 'lodash';
 import { PipNavService, NavMenuSection, NavMenuLink } from 'pip-webui2-nav';
 import { PipMediaService } from 'pip-webui2-layouts';
 import { BehaviorSubject, Observable, combineLatest, Subscription, of } from 'rxjs';

@@ -24,10 +24,22 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/iqs-libs-clientshell2-angular/assets",
+                "output": "/assets/"
+              },
+              {
+                "glob": "config.json",
+                "input": "src/app/",
+                "output": "/"
+              }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/pip-webui2-themes/styles.scss",
+              "node_modules/pip-webui2-layouts/styles.scss"
             ],
             "scripts": []
           },
@@ -83,12 +95,24 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/pip-webui2-themes/styles.scss",
+              "node_modules/pip-webui2-layouts/styles.scss"
             ],
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/iqs-libs-clientshell2-angular/assets",
+                "output": "/assets/"
+              },
+              {
+                "glob": "config.json",
+                "input": "src/app/",
+                "output": "/"
+              }
             ]
           }
         },

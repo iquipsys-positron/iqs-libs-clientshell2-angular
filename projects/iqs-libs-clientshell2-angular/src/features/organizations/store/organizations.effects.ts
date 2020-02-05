@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import findIndex from 'lodash/findIndex';
+import { findIndex } from 'lodash';
 import { Observable, of, combineLatest } from 'rxjs';
 import { catchError, map, switchMap, take, exhaustMap } from 'rxjs/operators';
 
@@ -68,7 +68,8 @@ export class OrganizationsEffects {
             fromOrganizationsActions.OrganizationsActionType.OrganizationsCurrentChangeInit,
             fromOrganizationsActions.OrganizationsActionType.OrganizationsCurrentChangeAbort,
         ),
-        switchMap((action: fromOrganizationsActions.OrganizationsCurrentChangeInitAction | fromOrganizationsActions.OrganizationsCurrentChangeAbortAction) => {
+        switchMap((action: fromOrganizationsActions.OrganizationsCurrentChangeInitAction
+            | fromOrganizationsActions.OrganizationsCurrentChangeAbortAction) => {
             if (action.type === fromOrganizationsActions.OrganizationsActionType.OrganizationsCurrentChangeInit) {
                 this.settings.updateKey('org_id', action.payload.id);
                 return of(new fromOrganizationsActions.OrganizationsCurrentChangeSettingsAction(action.payload));
@@ -101,7 +102,8 @@ export class OrganizationsEffects {
             fromOrganizationsActions.OrganizationsActionType.OrganizationsCreateInit,
             fromOrganizationsActions.OrganizationsActionType.OrganizationsCreateFailure,
         ),
-        switchMap((action: fromOrganizationsActions.OrganizationsCreateInitAction | fromOrganizationsActions.OrganizationsCreateFailureAction) => {
+        switchMap((action: fromOrganizationsActions.OrganizationsCreateInitAction
+            | fromOrganizationsActions.OrganizationsCreateFailureAction) => {
             if (action.type === fromOrganizationsActions.OrganizationsActionType.OrganizationsCreateInit) {
                 return this.ds.createOrganization(action.payload).pipe(
                     map(organization => new fromOrganizationsActions.OrganizationsCreateSuccessAction(organization)),

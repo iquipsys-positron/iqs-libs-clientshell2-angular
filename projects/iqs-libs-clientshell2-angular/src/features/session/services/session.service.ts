@@ -26,7 +26,6 @@ import { WINDOW, WindowWrapper } from '../../../common/services/window.service';
 export class IqsSessionService {
 
     constructor(
-        // @Inject(SESSION_CONFIG) private config: SessionConfig,
         @Inject(WINDOW) private window: WindowWrapper,
         private cookies: CookieService,
         private localStorageService: LocalStorageService,

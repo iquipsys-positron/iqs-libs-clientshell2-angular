@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-import merge from 'lodash/merge';
+import { cloneDeep, merge } from 'lodash';
 
 import * as fromNotificationsActions from './notifications.actions';
 import { notificationsReducer, notificationsInitialState } from './notifications.reducer';

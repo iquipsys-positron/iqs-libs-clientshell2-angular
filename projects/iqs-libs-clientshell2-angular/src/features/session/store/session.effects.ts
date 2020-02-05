@@ -7,7 +7,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as fromSessionActions from './session.actions';
-// import { SessionConfig, SESSION_CONFIG } from '../models/SessionConfig';
 import { Session } from '../models/index';
 import { IqsSessionDataService } from '../services/session.data.service';
 import { IqsSessionConfigService } from '../services/session.config.service';
@@ -17,7 +16,6 @@ import { WINDOW, WindowWrapper } from '../../../common/services/window.service';
 export class SessionEffects {
     constructor(
         private actions$: Actions,
-        // @Inject(SESSION_CONFIG) private config: SessionConfig,
         @Inject(WINDOW) private window: WindowWrapper,
         private router: Router,
         private sessionConfigService: IqsSessionConfigService,

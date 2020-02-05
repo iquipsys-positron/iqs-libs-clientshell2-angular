@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
-import { SessionConfig, SESSION_CONFIG } from '../models/SessionConfig';
 import { IqsSessionConfigService } from '../services/session.config.service';
 import { IqsSessionService } from '../services/session.service';
 import { WINDOW, WindowWrapper } from '../../../common/services/window.service';
@@ -11,7 +10,6 @@ import { WINDOW, WindowWrapper } from '../../../common/services/window.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    // @Inject(SESSION_CONFIG) private config: SessionConfig,
     @Inject(WINDOW) private window: WindowWrapper,
     private router: Router,
     private sessionConfig: IqsSessionConfigService,

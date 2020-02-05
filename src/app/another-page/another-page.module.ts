@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material';
-import { IqsAskDialogModule, IqsAskDialogComponent } from '@iquipsys/iqs-clients2-shell';
+import { IqsAskDialogModule, IqsAskDialogComponent } from 'iqs-libs-clientshell2-angular';
 
 import { AnotherPageComponent } from './another-page.component';
 

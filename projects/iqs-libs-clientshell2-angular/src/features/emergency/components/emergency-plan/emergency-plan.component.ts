@@ -1,7 +1,6 @@
 import { Component, Input, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import cloneDeep from 'lodash/cloneDeep';
-import find from 'lodash/find';
+import { cloneDeep, find } from 'lodash';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
