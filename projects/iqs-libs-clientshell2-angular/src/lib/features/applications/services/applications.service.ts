@@ -32,20 +32,24 @@ export class IqsApplicationsService {
         private organizationsService: IqsOrganizationsService
     ) { }
 
+    /**
+     * @deprecated since 2.0.2
+     */
     public init(): void {
-        if (IqsApplicationsService.appUpdateSub) { return; }
-        this.settingsService.init();
-        this.organizationsService.init();
-        IqsApplicationsService.appUpdateSub = this.organizationsService.current$.pipe(
-            filter(organization => organization !== null),
-            distinctUntilKeyChanged('id'),
-            withLatestFrom(this.settingsService.settings$),
-            // first()
-        ).subscribe(([organization, settings]: [Organization, Object]) => {
-            const key = this.applicationsConfig.favoritesGroupName += '_' + organization.id;
-            const favorites = settings.hasOwnProperty(key) ? JSON.parse(settings[key]) : [];
-            this.store.dispatch(new ApplicationsInitAction(favorites, this.applicationsConfig.config));
-        });
+        console.warn('this method is deprecated. Applications will update automaticaly');
+        // if (IqsApplicationsService.appUpdateSub) { return; }
+        // this.settingsService.init();
+        // this.organizationsService.init();
+        // IqsApplicationsService.appUpdateSub = this.organizationsService.current$.pipe(
+        //     filter(organization => organization !== null),
+        //     distinctUntilKeyChanged('id'),
+        //     withLatestFrom(this.settingsService.settings$),
+        //     // first()
+        // ).subscribe(([organization, settings]: [Organization, Object]) => {
+        //     const key = this.applicationsConfig.favoritesGroupName += '_' + organization.id;
+        //     const favorites = settings.hasOwnProperty(key) ? JSON.parse(settings[key]) : [];
+        //     this.store.dispatch(new ApplicationsInitAction(favorites, this.applicationsConfig.config));
+        // });
     }
 
     public get applications$(): Observable<ApplicationTile[]> {

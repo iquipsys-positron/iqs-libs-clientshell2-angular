@@ -2,19 +2,37 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take, filter, concatMap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, filter, concatMap, withLatestFrom, distinctUntilKeyChanged } from 'rxjs/operators';
 
 import { IqsApplicationsDataService } from '../services/applications.data.service';
 import { ApplicationTile } from '../models/ApplicationTile';
 import * as actionsFromApplications from './applications.actions';
 import { SettingsActionType, SettingsUpdateSuccessAction, SettingsUpdateFailureAction } from '../../settings/store/settings.actions';
+import { IqsSettingsService } from '../../settings/services/settings.service';
+import { IqsApplicationsConfigService } from '../services/applications.config.service';
+import { IqsOrganizationsService } from '../../organizations/services/organizations.service';
+import { Organization } from '../../organizations';
 
 @Injectable()
 export class ApplicationsEffects {
     constructor(
         private actions$: Actions,
+        private applicationsConfig: IqsApplicationsConfigService,
         private applicationsDataService: IqsApplicationsDataService,
+        private organizationsService: IqsOrganizationsService,
+        private settingsService: IqsSettingsService
     ) { }
+
+    @Effect() applicationsInit$: Observable<Action> =    this.organizationsService.current$.pipe(
+        filter(o => !!o),
+        distinctUntilKeyChanged('id'),
+        withLatestFrom(this.settingsService.settings$),
+        map(([org, settings]: [Organization, Object]) => {
+            const key = this.applicationsConfig.favoritesGroupName += '_' + org.id;
+            const favorites = settings.hasOwnProperty(key) ? JSON.parse(settings[key]) : [];
+            return new actionsFromApplications.ApplicationsInitAction(favorites, this.applicationsConfig.config);
+        })
+    );
 
     @Effect() applications$: Observable<Action> = this.actions$.pipe(
         ofType(

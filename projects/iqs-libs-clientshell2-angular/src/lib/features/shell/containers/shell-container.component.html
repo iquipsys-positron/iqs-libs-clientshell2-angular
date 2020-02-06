@@ -21,7 +21,7 @@
             <div fxFlex></div>
             <div fxHide.lt-md *ngIf="isAuthorized$ | async">
                 <button class="iqs-shell-organizations-button" mat-button [matMenuTriggerFor]="organizations" #organizationsTrigger="matMenuTrigger"
-                        *ngIf="(organizationsState$ | async) === 'data' && (currentOrganization$ | async)">
+                        *ngIf="currentOrganization$ | async" [disabled]="(organizationsState$ | async) !== 'data'">
                     <mat-icon fontSet="iqt" fontIcon="iqt-organization"></mat-icon>
                     <span>{{ (currentOrganization$ | async).name }}</span>
                     <mat-icon>{{ organizationsTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>

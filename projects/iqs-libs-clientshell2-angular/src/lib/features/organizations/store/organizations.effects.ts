@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { findIndex } from 'lodash';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Observable, of, combineLatest, empty } from 'rxjs';
 import { catchError, map, switchMap, take, exhaustMap } from 'rxjs/operators';
 
 import * as fromOrganizationsActions from './organizations.actions';
 import { Organization } from '../models/index';
 import { IqsOrganizationsDataService } from '../services/organizations.data.service';
-import { SettingsActionType, SettingsDataAction, SettingsUpdateSuccessAction } from '../../settings/store/index';
+import { SettingsActionType, SettingsDataAction, SettingsUpdateSuccessAction, SettingsUpdateAction } from '../../settings/store/index';
 import { IqsSettingsService } from '../../settings/services/settings.service';
 
 @Injectable()
@@ -52,14 +52,19 @@ export class OrganizationsEffects {
         this.actions$.pipe(ofType(SettingsActionType.SettingsData))
     ).pipe(
         switchMap(([organizationsAction, settingsAction]: [fromOrganizationsActions.OrganizationsDataAction, SettingsDataAction]) => {
-            const organizationId = settingsAction.payload.hasOwnProperty('org_id') ? settingsAction.payload['org_id'] : null;
-            const index = Array.isArray(organizationsAction.payload) && organizationsAction.payload.length
-                ? organizationId
-                    ? findIndex(organizationsAction.payload, ['id', organizationId])
-                    : 0
-                : null;
-            const organization = organizationId !== null ? organizationsAction.payload[index] : null;
-            return organization ? of(new fromOrganizationsActions.OrganizationsCurrentAction(organization)) : of();
+            if (settingsAction.payload.hasOwnProperty('organization_id')) {
+                const organizationId = settingsAction.payload['organization_id'];
+                const index = findIndex(organizationsAction.payload || [], ['id', organizationId]);
+                if (index >= 0) {
+                    return of(new fromOrganizationsActions.OrganizationsCurrentAction(organizationsAction.payload[index]) as Action);
+                }
+            }
+            if (organizationsAction.payload && organizationsAction.payload.length) {
+                const settings = Object.assign({}, settingsAction.payload, { organization_id: organizationsAction.payload[0].id });
+                return of(new SettingsUpdateAction({ settings }) as Action);
+            } else {
+                return empty();
+            }
         })
     );
 

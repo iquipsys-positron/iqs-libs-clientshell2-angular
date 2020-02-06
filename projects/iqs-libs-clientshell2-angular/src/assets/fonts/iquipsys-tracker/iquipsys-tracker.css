@@ -1,0 +1,331 @@
+@charset "UTF-8";
+
+/* iquipsys-tracker */
+@font-face {
+  font-family: "iquipsys-tracker";
+  src:url("./iquipsys-tracker.eot");
+  src:url("./iquipsys-tracker.eot?#iefix") format("embedded-opentype"),
+    url("./iquipsys-tracker.woff") format("woff"),
+    url("./iquipsys-tracker.ttf") format("truetype"),
+    url("./iquipsys-tracker.svg#1537433209") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "iquipsys-tracker" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="iqt-"]:before,
+[class*=" iqt-"]:before {
+  font-family: "iquipsys-tracker" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iqt-rules-1:before {
+  content: "\65";
+}
+.iqt-monitoring:before {
+  content: "\61";
+}
+.iqt-monitoring-1:before {
+  content: "\62";
+}
+.iqt-obj-zone:before {
+  content: "\63";
+}
+.iqt-asset-1:before {
+  content: "\64";
+}
+.iqt-equipment-1:before {
+  content: "\66";
+}
+.iqt-event-tmpl:before {
+  content: "\67";
+}
+.iqt-asset:before {
+  content: "\68";
+}
+.iqt-iquipsys:before {
+  content: "\69";
+}
+.iqt-object:before {
+  content: "\6a";
+}
+.iqt-team:before {
+  content: "\6b";
+}
+.iqt-person:before {
+  content: "\6c";
+}
+.iqt-site:before {
+  content: "\6d";
+}
+.iqt-admin:before {
+  content: "\6e";
+}
+.iqt-zone:before {
+  content: "\6f";
+}
+.iqt-monitoring-history:before {
+  content: "\70";
+}
+.iqt-path-history:before {
+  content: "\71";
+}
+.iqt-schedule:before {
+  content: "\72";
+}
+.iqt-event-history:before {
+  content: "\73";
+}
+.iqt-site-profile:before {
+  content: "\74";
+}
+.iqt-object-history:before {
+  content: "\75";
+}
+.iqt-obj-type:before {
+  content: "\76";
+}
+.iqt-incident-res:before {
+  content: "\77";
+}
+.iqt-geo-zone:before {
+  content: "\7a";
+}
+.iqt-material-design-iconic-font-5:before {
+  content: "\41";
+}
+.iqt-play:before {
+  content: "\42";
+}
+.iqt-pause:before {
+  content: "\43";
+}
+.iqt-stop:before {
+  content: "\44";
+}
+.iqt-fwd:before {
+  content: "\45";
+}
+.iqt-rev:before {
+  content: "\46";
+}
+.iqt-tracker-1:before {
+  content: "\47";
+}
+.iqt-stats:before {
+  content: "\48";
+}
+.iqt-events:before {
+  content: "\49";
+}
+.iqt-rules:before {
+  content: "\4a";
+}
+.iqt-quipment:before {
+  content: "\4b";
+}
+.iqt-config:before {
+  content: "\78";
+}
+.iqt-sign-out:before {
+  content: "\79";
+}
+.iqt-incident:before {
+  content: "\4c";
+}
+.iqt-location:before {
+  content: "\4d";
+}
+.iqt-unknown:before {
+  content: "\4e";
+}
+.iqt-category:before {
+  content: "\4f";
+}
+.iqt-metric:before {
+  content: "\50";
+}
+.iqt-emergency:before {
+  content: "\51";
+}
+.iqt-payments:before {
+  content: "\52";
+}
+.iqt-pay-type:before {
+  content: "\53";
+}
+.iqt-comm-off:before {
+  content: "\55";
+}
+.iqt-immobile:before {
+  content: "\56";
+}
+.iqt-tracker:before {
+  content: "\57";
+}
+.iqt-location-1:before {
+  content: "\58";
+}
+.iqt-path:before {
+  content: "\59";
+}
+.iqt-path-1:before {
+  content: "\5a";
+}
+.iqt-comm-on:before {
+  content: "\54";
+}
+.iqt-object-params:before {
+  content: "\30";
+}
+.iqt-zone-events:before {
+  content: "\31";
+}
+.iqt-zone-params:before {
+  content: "\32";
+}
+.iqt-object-events:before {
+  content: "\33";
+}
+.iqt-cart:before {
+  content: "\34";
+}
+.iqt-draw-line:before {
+  content: "\36";
+}
+.iqt-draw-polygon:before {
+  content: "\37";
+}
+.iqt-draw-circle:before {
+  content: "\35";
+}
+.iqt-draw-pan:before {
+  content: "\38";
+}
+.iqt-draw-clear:before {
+  content: "\39";
+}
+.iqt-star:before {
+  content: "\21";
+}
+.iqt-star-half:before {
+  content: "\22";
+}
+.iqt-star-white:before {
+  content: "\23";
+}
+.iqt-radio-off:before {
+  content: "\24";
+}
+.iqt-radio-on:before {
+  content: "\25";
+}
+.iqt-check-on:before {
+  content: "\26";
+}
+.iqt-check-off:before {
+  content: "\27";
+}
+.iqt-hot:before {
+  content: "\28";
+}
+.iqt-people-plus:before {
+  content: "\29";
+}
+.iqt-people-white:before {
+  content: "\2a";
+}
+.iqt-person-1:before {
+  content: "\2b";
+}
+.iqt-person-plus:before {
+  content: "\2c";
+}
+.iqt-person-white:before {
+  content: "\2d";
+}
+.iqt-ping:before {
+  content: "\2e";
+}
+.iqt-bullhorn:before {
+  content: "\2f";
+}
+.iqt-beacon:before {
+  content: "\3a";
+}
+.iqt-wizard:before {
+  content: "\3b";
+}
+.iqt-gateways:before {
+  content: "\3c";
+}
+.iqt-speedometer:before {
+  content: "\3d";
+}
+.iqt-params:before {
+  content: "\3e";
+}
+.iqt-router:before {
+  content: "\3f";
+}
+.iqt-servers:before {
+  content: "\40";
+}
+.iqt-engine:before {
+  content: "\5b";
+}
+.iqt-fan:before {
+  content: "\5d";
+}
+.iqt-factory:before {
+  content: "\5e";
+}
+.iqt-truck-fast:before {
+  content: "\60";
+}
+.iqt-map-marker-circle:before {
+  content: "\7b";
+}
+.iqt-home-circle:before {
+  content: "\5f";
+}
+.iqt-flash-circle:before {
+  content: "\7c";
+}
+.iqt-worker:before {
+  content: "\7d";
+}
+.iqt-server-network:before {
+  content: "\7e";
+}
+.iqt-speaker-wireless:before {
+  content: "\5c";
+}
+.iqt-towing:before {
+  content: "\e000";
+}
+.iqt-home:before {
+  content: "\e001";
+}
+.iqt-site-1:before {
+  content: "\e002";
+}

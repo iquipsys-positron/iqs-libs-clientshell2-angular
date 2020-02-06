@@ -187,7 +187,7 @@ export class IqsShellContainerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.emergencyService.init();
-        this.applicationsService.init();
+        // this.applicationsService.init();
     }
 
     ngOnDestroy() {

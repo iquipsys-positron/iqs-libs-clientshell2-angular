@@ -2,5 +2,5 @@
  * Public API Surface of mst-clients-shell
  */
 
-export * from './common/index';
-export * from './features/index';
+export * from './lib/common/index';
+export * from './lib/features/index';
