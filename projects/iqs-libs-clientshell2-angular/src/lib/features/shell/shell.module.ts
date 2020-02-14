@@ -24,17 +24,9 @@ import { IqsSettingsModule } from '../settings/index';
 import { IqsOrganizationsModule } from '../organizations/index';
 import { WINDOW_PROVIDERS } from '../../common/services/window.service';
 
-const applicationConfig: ApplicationConfig = <ApplicationConfig>{
-    favoritesGroupName: 'favourites'
-};
-
 export function createShellMergedConfig(functionConfig: ShellModuleConfig, injector: Injector) {
     const providedConfig = injector.get(SHELL_RUNTIME_CONFIG, {});
     return merge({}, providedConfig, functionConfig);
-}
-
-export function createApplicationConfig() {
-    return new IqsApplicationsConfigService(applicationConfig);
 }
 
 // @dynamic
@@ -90,11 +82,8 @@ export class IqsShellModule {
                 },
                 IqsSessionConfigService,
                 SessionAuthInterceptorProvider,
-                {
-                    provide: IqsApplicationsConfigService,
-                    useFactory: createApplicationConfig
-                },
                 IqsConfigService,
+                IqsApplicationsConfigService,
                 IqsShellService,
                 WINDOW_PROVIDERS
             ]

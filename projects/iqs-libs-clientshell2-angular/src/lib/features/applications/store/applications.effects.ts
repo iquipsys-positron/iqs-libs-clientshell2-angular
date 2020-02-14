@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take, filter, concatMap, withLatestFrom, distinctUntilKeyChanged } from 'rxjs/operators';
+import { catchError, map, switchMap, take, filter, concatMap, withLatestFrom, distinctUntilKeyChanged, tap } from 'rxjs/operators';
 
 import { IqsApplicationsDataService } from '../services/applications.data.service';
 import { ApplicationTile } from '../models/ApplicationTile';
@@ -11,7 +11,8 @@ import { SettingsActionType, SettingsUpdateSuccessAction, SettingsUpdateFailureA
 import { IqsSettingsService } from '../../settings/services/settings.service';
 import { IqsApplicationsConfigService } from '../services/applications.config.service';
 import { IqsOrganizationsService } from '../../organizations/services/organizations.service';
-import { Organization } from '../../organizations';
+import { Organization } from '../../organizations/models/index';
+import { UserRole, userRoleValue } from '../../session/models/index';
 
 @Injectable()
 export class ApplicationsEffects {
@@ -23,7 +24,7 @@ export class ApplicationsEffects {
         private settingsService: IqsSettingsService
     ) { }
 
-    @Effect() applicationsInit$: Observable<Action> =    this.organizationsService.current$.pipe(
+    @Effect() applicationsInit$: Observable<Action> = this.organizationsService.current$.pipe(
         filter(o => !!o),
         distinctUntilKeyChanged('id'),
         withLatestFrom(this.settingsService.settings$),

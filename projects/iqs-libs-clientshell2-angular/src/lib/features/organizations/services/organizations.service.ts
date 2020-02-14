@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { first, take } from 'rxjs/operators';
+import { first, take, filter, withLatestFrom, map } from 'rxjs/operators';
 
 import {
     OrganizationsState,
@@ -18,13 +18,16 @@ import {
 import { Organization } from '../models/index';
 import { EntityState } from '../../../common/index';
 import { IqsSettingsService } from '../../settings/services/settings.service';
+import { IqsSessionService } from '../../session/services/session.service';
+import { UserRole } from '../../session/models/UserRole';
 
 @Injectable()
 export class IqsOrganizationsService {
 
     constructor(
         private store: Store<OrganizationsState>,
-        private settingsService: IqsSettingsService
+        private settingsService: IqsSettingsService,
+        private sessionService: IqsSessionService
     ) { }
 
     public init(): void {
@@ -54,6 +57,28 @@ export class IqsOrganizationsService {
         let organization: Organization;
         this.current$.pipe(take(1)).subscribe(s => organization = s);
         return organization;
+    }
+
+    public get currentRole$(): Observable<UserRole> {
+        return this.current$.pipe(
+            filter(o => !!o),
+            withLatestFrom(this.sessionService.session$),
+            map(([org, session]) => {
+                const roles = session.user.roles as string[];
+                if (roles.includes('admin')) { return UserRole.admin; }
+                const orgRole = roles.find(r => r.startsWith(org.id));
+                if (!orgRole) { return UserRole.unknown; }
+                const role = orgRole.substr(org.id.length + 1) as UserRole;
+                if (!Object.values(UserRole).includes(role as UserRole)) { return UserRole.unknown; }
+                return role;
+            })
+        );
+    }
+
+    public get currentRole(): UserRole {
+        let role: UserRole;
+        this.currentRole$.pipe(take(1)).subscribe(r => role = r);
+        return role;
     }
 
     public set current(organization: Organization) {

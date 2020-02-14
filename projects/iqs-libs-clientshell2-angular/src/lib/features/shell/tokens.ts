@@ -1,9 +1,12 @@
 import { InjectionToken } from '@angular/core';
 
 import { ShellConfig, defaultShellConfig } from './models/ShellConfig';
+import { ApplicationConfig } from '../applications/models/ApplicationConfig';
 import { SessionConfig, defaultSessionConfig } from '../session/models/SessionConfig';
+import { applicationConfigDefault } from '../applications/models/ApplicationConfig';
 
 export interface ShellModuleConfig {
+    application?: ApplicationConfig;
     mock?: boolean;
     session?: SessionConfig;
     shell?: ShellConfig;
@@ -11,6 +14,7 @@ export interface ShellModuleConfig {
 }
 
 export const defaultShellModuleConfig = {
+    application: applicationConfigDefault,
     mock: false,
     session: defaultSessionConfig,
     shell: defaultShellConfig

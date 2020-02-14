@@ -1,6 +1,9 @@
 {
+    "application": {
+        "id": "iqs_positron_shell"
+    },
     "mock": true,
     "session": {
-        "serverUrl": "http://192.168.99.100:8080"
+        "serverUrl": "/"
     }
 }

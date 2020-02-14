@@ -1,3 +1,13 @@
+## <a name="2.0.3"></a> 2.0.3 (2020-02-14)
+
+Workarond for using 'config.json' file to manage application
+
+#### Breaking Changes
+No breaking changes in this version
+
+#### Bug Fixes
+No bug fixes changes in this version
+
 ## <a name="2.0.0"></a> 2.0.0 (2020-02-04)
 
 Version bump because of LICENSE changes
