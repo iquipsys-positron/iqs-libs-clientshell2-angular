@@ -17,7 +17,7 @@ export enum ApplicationsActionType {
 export class ApplicationsInitAction implements Action {
     readonly type = ApplicationsActionType.ApplicationsInit;
 
-    constructor(public favorites: string[], public config: ApplicationConfig) { }
+    constructor(public favorites: string[]) { }
 }
 
 export class ApplicationsAbortAction implements Action {
@@ -29,7 +29,7 @@ export class ApplicationsAbortAction implements Action {
 export class ApplicationsSuccessAction implements Action {
     readonly type = ApplicationsActionType.ApplicationsSuccess;
 
-    constructor(public payload: ApplicationTile[], public config: ApplicationConfig) { }
+    constructor(public payload: ApplicationTile[]) { }
 }
 
 export class ApplicationsFailureAction implements Action {
@@ -47,7 +47,7 @@ export class ApplicationsEmptyAction implements Action {
 export class ApplicationsDataAction implements Action {
     readonly type = ApplicationsActionType.ApplicationsData;
 
-    constructor(public payload: ApplicationTile[], public config: ApplicationConfig) { }
+    constructor(public payload: ApplicationTile[]) { }
 }
 
 export class ApplicationsToggleFavoriteAction implements Action {
@@ -56,8 +56,7 @@ export class ApplicationsToggleFavoriteAction implements Action {
     constructor(public payload: {
         rid?: string,
         application_id: string,
-        state: boolean,
-        config: ApplicationConfig
+        state: boolean
     }) { }
 }
 
@@ -74,8 +73,7 @@ export class ApplicationsToggleFavoriteFailureAction implements Action {
         rid?: string,
         application_id: string,
         error: any,
-        state: boolean,
-        config: ApplicationConfig
+        state: boolean
     }) { }
 }
 

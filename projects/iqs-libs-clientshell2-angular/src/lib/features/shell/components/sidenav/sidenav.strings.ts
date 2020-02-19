@@ -8,6 +8,7 @@ export function getSidenavTranslations(favoritesGroupName: string) {
             'analytics': 'Analytics',
             'administration': 'Administration',
             'config': 'Configuration',
+            'management': 'Management',
         },
         ru: {
             'SiDENAV.ORGANIZATION.CONNECT': 'Подключиться к сайту',
@@ -17,6 +18,7 @@ export function getSidenavTranslations(favoritesGroupName: string) {
             'analytics': 'Аналитика',
             'administration': 'Администрирование',
             'config': 'Конфигурации',
+            'management': 'Управление'
         }
     };
 }

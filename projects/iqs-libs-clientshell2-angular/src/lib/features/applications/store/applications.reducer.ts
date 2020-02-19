@@ -3,43 +3,14 @@ import { findIndex } from 'lodash';
 
 import { ApplicationsActionType, ApplicationsAction } from './applications.actions';
 import { ApplicationsState } from './applications.state';
-import { ApplicationTile, ApplicationGroup } from '../models/index';
 import { EntityState } from '../../../common/index';
 
 export const applicationsInitialState: ApplicationsState = {
     applications: [],
-    groups: [],
     state: EntityState.Empty,
     toggling: false,
     error: null,
 };
-
-function groupApplications(applications: ApplicationTile[], FAVORITES_GROUP_NAME: string): ApplicationGroup[] {
-    const groups = {
-        [FAVORITES_GROUP_NAME]: <ApplicationGroup>{
-            name: FAVORITES_GROUP_NAME,
-            applications: [],
-            isHidden: false
-        }
-    };
-    for (const app of applications) {
-        if (!groups.hasOwnProperty(app.group)) {
-            groups[app.group] = <ApplicationGroup>{
-                name: app.group,
-                applications: []
-            };
-        }
-        groups[app.group].applications.push(app);
-        if (app.isFavorite) {
-            groups[FAVORITES_GROUP_NAME].applications.push(app);
-        }
-
-    }
-    for (const key of Object.keys(groups)) {
-        groups[key].isHidden = groups[key].applications.length === 0;
-    }
-    return Object.keys(groups).map(key => groups[key]);
-}
 
 export function applicationsReducer(
     state = applicationsInitialState,
@@ -79,7 +50,6 @@ export function applicationsReducer(
         case ApplicationsActionType.ApplicationsData: {
             let map = fromJS(state);
             map = map.set('applications', action.payload);
-            map = map.set('groups', groupApplications(action.payload, action.config.favoritesGroupName));
             map = map.set('state', EntityState.Data);
             return <ApplicationsState>map.toJS();
         }
@@ -87,7 +57,6 @@ export function applicationsReducer(
         case ApplicationsActionType.ApplicationsEmpty: {
             let map = fromJS(state);
             map = map.set('applications', []);
-            map = map.set('groups', []);
             map = map.set('state', EntityState.Empty);
             return <ApplicationsState>map.toJS();
         }
@@ -100,7 +69,6 @@ export function applicationsReducer(
                 applications[idx].isFavorite = action.payload.state;
             }
             map = map.set('applications', applications);
-            map = map.set('groups', groupApplications(applications, action.payload.config.favoritesGroupName));
             map = map.set('state', EntityState.Data);
             map = map.set('toggling', true);
             map = map.set('error', null);

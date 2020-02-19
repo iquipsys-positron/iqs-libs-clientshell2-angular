@@ -1,6 +1,6 @@
 {
     "name": "iqs-libs-clientshell2-angular",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "author": "iQuipsys Inc. <www.iquipsys.com>",
     "description": "Client shell for iQuipsys Positron in Angular 7+",
     "contributors": [

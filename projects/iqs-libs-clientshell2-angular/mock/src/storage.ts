@@ -13,7 +13,8 @@ import {
     Organization,
     User,
     Zone,
-    ZonePresence
+    ZonePresence,
+    UserRole
 } from 'iqs-libs-clientshell2-angular';
 import { cloneDeep } from 'lodash';
 import * as moment_ from 'moment';
@@ -98,443 +99,576 @@ const userOrganizationsDefault: UserOrganizations[] = [
         ]
     }
 ];
-const applicationsDefault: Application[] = [
-    {
-        'name': {
-            'ru': 'Наблюдение',
-            'en': 'Monitoring'
-        },
-        'description': {
-            'ru': 'Контроль текущей ситуации, просмотр событий, состояния и перемещения объектов на карте',
-            'en': 'Monitoring the current situation, viewing events, status and moving objects on the map'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'apps',
-        'url': '/monitoring/index.html#',
-        'icon': 'iqs:monitoring',
-        'id': 'iqs_positron_monitoring'
+const applicationsDefault: Application[] = [{
+    'name': {
+        'ru': 'Наблюдение',
+        'en': 'Monitoring'
     },
-    {
-        'name': {
-            'ru': 'Ретроспектива',
-            'en': 'Retrospective'
-        },
-        'description': {
-            'ru': 'Анализ истории событий, прошлых состояний и перемещений на карте',
-            'en': 'Analysis of the history of events, past states and movements on the map'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'apps',
-        'url': '/retrospective/index.html#',
-        'icon': 'iqs:clock-back',
-        'id': 'iqs_positron_retrospective'
+    'description': {
+        'ru': 'Контроль текущей ситуации, просмотр событий, состояния и перемещения объектов на карте',
+        'en': 'Monitoring the current situation, viewing events, status and moving objects on the map'
     },
-    {
-        'name': {
-            'ru': 'Пути следования',
-            'en': 'Dot traces'
-        },
-        'description': {
-            'ru': 'Анализ траекторий движения объектов',
-            'en': 'Analysis of object trajectories'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'apps',
-        'url': '/dottraces/index.html#',
-        'icon': 'iqs:path-1',
-        'id': 'iqs_positron_dottraces'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'apps',
+    'url': '/monitoring/index.html#',
+    'icon': 'iqs:monitoring',
+    'id': 'iqs_positron_monitoring'
+},
+{
+    'name': {
+        'ru': 'Ретроспектива',
+        'en': 'Retrospective'
     },
-    {
-        'name': {
-            'ru': 'Расписание',
-            'en': 'Schedule'
-        },
-        'description': {
-            'ru': 'Планирование и учет рабочего времени, закрепление операторов за машинами и оборудованием',
-            'en': 'Planning and time tracking, securing operators for machines and equipment'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'apps',
-        'url': '/schedule/index.html#',
-        'icon': 'iqs:schedule',
-        'id': 'iqs_positron_schedule'
+    'description': {
+        'ru': 'Анализ истории событий, прошлых состояний и перемещений на карте',
+        'en': 'Analysis of the history of events, past states and movements on the map'
     },
-    {
-        'name': {
-            'ru': 'Происшествия',
-            'en': 'Incidents'
-        },
-        'description': {
-            'ru': 'Просмотр и расследование происшествий',
-            'en': 'View and investigate incidents'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'apps',
-        'url': '/incidents/index.html#',
-        'icon': 'iqs:incident',
-        'id': 'iqs_positron_incidents'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'apps',
+    'url': '/retrospective/index.html#',
+    'icon': 'iqs:clock-back',
+    'id': 'iqs_positron_retrospective'
+},
+{
+    'name': {
+        'ru': 'Пути следования',
+        'en': 'Dot traces'
     },
-    {
-        'name': {
-            'ru': 'Ручные коррекции',
-            'en': 'Manual corrections'
-        },
-        'description': {
-            'ru': 'Корректировка собранной статистики по объектам и группам',
-            'en': 'Correcting the collected statistics for objects and groups'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/manual_corrections/index.html#',
-        'icon': 'webui-icons:note-take',
-        'id': 'iqs_positron_manual_corrections'
+    'description': {
+        'ru': 'Анализ траекторий движения объектов',
+        'en': 'Analysis of object trajectories'
     },
-    {
-        'name': {
-            'ru': 'Пройденное расстояние',
-            'en': 'Distance'
-        },
-        'description': {
-            'ru': 'Анализ расстояния пройденного объектами',
-            'en': 'Analysis of distance passed by objects'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/distance',
-        'icon': 'iqs:metric',
-        'id': 'iqs_positron_distance'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'apps',
+    'url': '/dottraces/index.html#',
+    'icon': 'iqs:path-1',
+    'id': 'iqs_positron_dottraces'
+},
+{
+    'name': {
+        'ru': 'Расписание',
+        'en': 'Schedule'
     },
-    {
-        'name': {
-            'ru': 'Скорость движения',
-            'en': 'Speed'
-        },
-        'description': {
-            'ru': 'Анализ скорости движения объектов в различных зонах',
-            'en': 'Analysis of the speed of movement of objects in various zones'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/speed',
-        'icon': 'iqs:speedometer',
-        'id': 'iqs_positron_speed'
+    'description': {
+        'ru': 'Планирование и учет рабочего времени, закрепление операторов за машинами и оборудованием',
+        'en': 'Planning and time tracking, securing operators for machines and equipment'
     },
-    {
-        'name': {
-            'ru': 'Неподвижность',
-            'en': 'Immobility'
-        },
-        'description': {
-            'ru': 'Анализ длительного нахождения объектов без движения',
-            'en': 'Analysis of long-term staying of objects without movement'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/immobile',
-        'icon': 'iqs:incident',
-        'id': 'iqs_positron_immobility'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'apps',
+    'url': '/schedule/index.html#',
+    'icon': 'iqs:schedule',
+    'id': 'iqs_positron_schedule'
+},
+{
+    'name': {
+        'ru': 'Происшествия',
+        'en': 'Incidents'
     },
-    {
-        'name': {
-            'ru': 'Замирание',
-            'en': 'Freezed'
-        },
-        'description': {
-            'ru': 'Анализ отсутствия какой-либо активности объектов',
-            'en': 'An analysis of the absence of any activity of objects'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/freezed',
-        'icon': 'webui-icons:person-white',
-        'id': 'iqs_positron_freeze'
+    'description': {
+        'ru': 'Просмотр и расследование происшествий',
+        'en': 'View and investigate incidents'
     },
-    {
-        'name': {
-            'ru': 'Время пребывания',
-            'en': 'Presence time'
-        },
-        'description': {
-            'ru': 'Анализ времени нахождения объектов в определенных зонах',
-            'en': 'Analysis of the time of presence objects in certain zones'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/presence',
-        'icon': 'webui-icons:clock-back',
-        'id': 'iqs_positron_presence'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'apps',
+    'url': '/incidents/index.html#',
+    'icon': 'iqs:incident',
+    'id': 'iqs_positron_incidents'
+},
+{
+    'name': {
+        'ru': 'Ручные коррекции',
+        'en': 'Manual corrections'
     },
-    {
-        'name': {
-            'ru': 'Анализ событий',
-            'en': 'Events'
-        },
-        'description': {
-            'ru': 'Анализ прошлых событий по типам, объектам и зонам',
-            'en': 'Analyzing past events by types, objects and zones'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/object_events',
-        'icon': 'iqs:events',
-        'id': 'iqs_positron_events'
+    'description': {
+        'ru': 'Корректировка собранной статистики по объектам и группам',
+        'en': 'Correcting the collected statistics for objects and groups'
     },
-    {
-        'name': {
-            'ru': 'Рабочая площадка',
-            'en': 'Organization profile'
-        },
-        'description': {
-            'ru': 'Общая информация о площадке, местоположение и карты',
-            'en': 'General information about the organization, location and map'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_organization/index.html#/organization',
-        'icon': 'iqs:organization-profile',
-        'id': 'iqs_positron_organization'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'analytics',
+    'url': '/manual_corrections/index.html#',
+    'icon': 'webui-icons:note-take',
+    'id': 'iqs_positron_manual_corrections'
+},
+{
+    'name': {
+        'ru': 'Пройденное расстояние',
+        'en': 'Distance'
     },
-    {
-        'name': {
-            'ru': 'Пользователи',
-            'en': 'Accounts'
-        },
-        'description': {
-            'ru': 'Управление правами доступа, приглашение новых пользователей',
-            'en': 'Managing access rights, inviting new users'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_organization/index.html#/users',
-        'icon': 'webui-icons:people',
-        'id': 'iqs_positron_users'
+    'description': {
+        'ru': 'Анализ расстояния пройденного объектами',
+        'en': 'Analysis of distance passed by objects'
     },
-    {
-        'name': {
-            'ru': 'Трекеры',
-            'en': 'Trackers'
-        },
-        'description': {
-            'ru': 'Регистрация и настройка трекеров',
-            'en': 'Registration and managing of trackers'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_devices/index.html#/devices',
-        'icon': 'iqs:tracker',
-        'id': 'iqs_positron_trackers'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/distance',
+    'icon': 'iqs:metric',
+    'id': 'iqs_positron_distance'
+},
+{
+    'name': {
+        'ru': 'Скорость движения',
+        'en': 'Speed'
     },
-    {
-        'name': {
-            'ru': 'Маршрутизаторы',
-            'en': 'Gateways'
-        },
-        'description': {
-            'ru': 'Настройка LoRa маршрутизаторов',
-            'en': 'Configuring LoRa gateways'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_devices/index.html#/gateways',
-        'icon': 'icons:connections',
-        'id': 'iqs_positron_gateways'
+    'description': {
+        'ru': 'Анализ скорости движения объектов в различных зонах',
+        'en': 'Analysis of the speed of movement of objects in various zones'
     },
-    {
-        'name': {
-            'ru': 'Объекты контроля',
-            'en': 'Objects'
-        },
-        'description': {
-            'ru': 'Список контролируемых людей, машин и механизмов',
-            'en': 'List of people, machines and mechanisms under control'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_objects/index.html#/objects',
-        'icon': 'iqs:object',
-        'id': 'iqs_positron_objects'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/speed',
+    'icon': 'iqs:speedometer',
+    'id': 'iqs_positron_speed'
+},
+{
+    'name': {
+        'ru': 'Неподвижность',
+        'en': 'Immobility'
     },
-    {
-        'name': {
-            'ru': 'Группы объектов',
-            'en': 'Groups'
-        },
-        'description': {
-            'ru': 'Организация контроллируемых объектов в логические группы',
-            'en': 'Organization of controlled objects in logical groups'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_objects/index.html#/groups',
-        'icon': 'iqs:team',
-        'id': 'iqs_positron_object_groups'
+    'description': {
+        'ru': 'Анализ длительного нахождения объектов без движения',
+        'en': 'Analysis of long-term staying of objects without movement'
     },
-    {
-        'name': {
-            'ru': 'Места',
-            'en': 'Locations'
-        },
-        'description': {
-            'ru': 'Точки для быстрого перемещения по карте',
-            'en': 'Points for fast navigation on the map'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_zones/index.html#/locations',
-        'icon': 'iqs:location-1',
-        'id': 'iqs_positron_locations'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/immobile',
+    'icon': 'iqs:incident',
+    'id': 'iqs_positron_immobility'
+},
+{
+    'name': {
+        'ru': 'Замирание',
+        'en': 'Freezed'
     },
-    {
-        'name': {
-            'ru': 'Шаблоны событий',
-            'en': 'Event templates'
-        },
-        'description': {
-            'ru': 'Шаблоны для убыстрения ручной регистрации событий',
-            'en': 'Templates for faster manual event logging'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_events/index.html#/events_templates',
-        'icon': 'iqs:event-tmpl',
-        'id': 'iqs_positron_event_templates'
+    'description': {
+        'ru': 'Анализ отсутствия какой-либо активности объектов',
+        'en': 'An analysis of the absence of any activity of objects'
     },
-    {
-        'name': {
-            'ru': 'Шаблоны резолюций',
-            'en': 'Resolutions'
-        },
-        'description': {
-            'ru': 'Шаблонные резолюции для описания реакции на происшествия',
-            'en': 'Resolution templates for describing reactions to incidents'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_events/index.html#/resolutions',
-        'icon': 'iqs:incident-res',
-        'id': 'iqs_positron_resolutions'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/freezed',
+    'icon': 'webui-icons:person-white',
+    'id': 'iqs_positron_freeze'
+},
+{
+    'name': {
+        'ru': 'Время пребывания',
+        'en': 'Presence time'
     },
-    {
-        'name': {
-            'ru': 'Правила событий',
-            'en': 'Rules'
-        },
-        'description': {
-            'ru': 'Настройка правил для генерации событий в системе',
-            'en': 'Setting rules for generating events in the system'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_events/index.html#/event_rules',
-        'icon': 'iqs:rules',
-        'id': 'iqs_positron_rules'
+    'description': {
+        'ru': 'Анализ времени нахождения объектов в определенных зонах',
+        'en': 'Analysis of the time of presence objects in certain zones'
     },
-    {
-        'name': {
-            'ru': 'Зоны объектов',
-            'en': 'Object zones'
-        },
-        'description': {
-            'ru': 'Зоны ассоциированные с подвижными объектами',
-            'en': 'Zones associated with mobile objects'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_zones/index.html#/zone_objects',
-        'icon': 'iqs:obj-zone',
-        'id': 'iqs_positron_object_zones'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/presence',
+    'icon': 'webui-icons:clock-back',
+    'id': 'iqs_positron_presence'
+},
+{
+    'name': {
+        'ru': 'Анализ событий',
+        'en': 'Events'
     },
-    {
-        'name': {
-            'ru': 'Смены',
-            'en': 'Shifts'
-        },
-        'description': {
-            'ru': 'Настройка рассписания смен',
-            'en': 'Setting the schedule shifts'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_organization/index.html#/shifts',
-        'icon': 'iqs:schedule',
-        'id': 'iqs_positron_shifts'
+    'description': {
+        'ru': 'Анализ прошлых событий по типам, объектам и зонам',
+        'en': 'Analyzing past events by types, objects and zones'
     },
-    {
-        'name': {
-            'ru': 'Планы ЧС',
-            'en': 'Emergency plans'
-        },
-        'description': {
-            'ru': 'Планы действий при чрезвачайных ситуациях',
-            'en': 'Action plans for emergency situations'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'administration',
-        'url': '/config_emergency/index.html#',
-        'icon': 'iqs:emergency',
-        'id': 'iqs_positron_emergency'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.user,
+    'group': 'analytics',
+    'url': '/stats/index.html#/object_events',
+    'icon': 'iqs:events',
+    'id': 'iqs_positron_events'
+},
+{
+    'name': {
+        'ru': 'Профиль организации',
+        'en': 'Organization profile'
     },
-    {
-        'name': {
-            'ru': 'Гео-зоны',
-            'en': 'Geo-zones'
-        },
-        'description': {
-            'ru': 'Зоны с географической привязкой',
-            'en': 'Geo-referenced arease'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_zones/index.html#/zones',
-        'icon': 'iqs:geo-zone',
-        'id': 'iqs_admin_geo_zones'
+    'description': {
+        'ru': 'Общая информация о площадке, местоположение и карты',
+        'en': 'General information about the organization, location and map'
     },
-    {
-        'name': {
-            'ru': 'Параметры объектов',
-            'en': 'Object params'
-        },
-        'description': {
-            'ru': 'Сводная информация по параметрам',
-            'en': 'Summary information by parameters'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/object_params',
-        'icon': 'iqs:params',
-        'id': 'iqs_object_params'
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'administration',
+    'url': '/config_organization/index.html#/organization',
+    'icon': 'iqs:organization-profile',
+    'id': 'iqs_positron_organization'
+},
+{
+    'name': {
+        'ru': 'Пользователи',
+        'en': 'Accounts'
     },
-    {
-        'name': {
-            'ru': 'Маяки',
-            'en': 'Beacons'
-        },
-        'description': {
-            'ru': 'Настройка маяков',
-            'en': 'Beacons settings'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'config',
-        'url': '/config_devices/index.html#/beacons',
-        'icon': 'iqs:beacon',
-        'id': 'iqs_config_beacons'
+    'description': {
+        'ru': 'Управление правами доступа, приглашение новых пользователей',
+        'en': 'Managing access rights, inviting new users'
     },
-    {
-        'name': {
-            'ru': 'Использование',
-            'en': 'Usage'
-        },
-        'description': {
-            'ru': 'Анализ использования объектов',
-            'en': 'Analysis of objects usage'
-        },
-        'product': 'iQuipsys Positron',
-        'group': 'analytics',
-        'url': '/stats/index.html#/usage',
-        'icon': 'iqs:stats',
-        'id': 'iqs_positron_usage'
-    }
-];
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'administration',
+    'url': '/config_organization/index.html#/users',
+    'icon': 'webui-icons:people',
+    'id': 'iqs_positron_users'
+},
+{
+    'name': {
+        'ru': 'Трекеры',
+        'en': 'Trackers'
+    },
+    'description': {
+        'ru': 'Регистрация и настройка трекеров',
+        'en': 'Registration and managing of trackers'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_devices/index.html#/devices',
+    'icon': 'iqs:tracker',
+    'id': 'iqs_positron_trackers'
+},
+{
+    'name': {
+        'ru': 'Маршрутизаторы',
+        'en': 'Gateways'
+    },
+    'description': {
+        'ru': 'Настройка LoRa маршрутизаторов',
+        'en': 'Configuring LoRa gateways'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_devices/index.html#/gateways',
+    'icon': 'icons:connections',
+    'id': 'iqs_positron_gateways'
+},
+{
+    'name': {
+        'ru': 'Объекты контроля',
+        'en': 'Objects'
+    },
+    'description': {
+        'ru': 'Список контролируемых людей, машин и механизмов',
+        'en': 'List of people, machines and mechanisms under control'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_objects/index.html#/objects',
+    'icon': 'iqs:object',
+    'id': 'iqs_positron_objects'
+},
+{
+    'name': {
+        'ru': 'Группы объектов',
+        'en': 'Groups'
+    },
+    'description': {
+        'ru': 'Организация контроллируемых объектов в логические группы',
+        'en': 'Organization of controlled objects in logical groups'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_objects/index.html#/groups',
+    'icon': 'iqs:team',
+    'id': 'iqs_positron_object_groups'
+},
+{
+    'name': {
+        'ru': 'Места',
+        'en': 'Locations'
+    },
+    'description': {
+        'ru': 'Точки для быстрого перемещения по карте',
+        'en': 'Points for fast navigation on the map'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_zones/index.html#/locations',
+    'icon': 'iqs:location-1',
+    'id': 'iqs_positron_locations'
+},
+{
+    'name': {
+        'ru': 'Шаблоны событий',
+        'en': 'Event templates'
+    },
+    'description': {
+        'ru': 'Шаблоны для убыстрения ручной регистрации событий',
+        'en': 'Templates for faster manual event logging'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_events/index.html#/events_templates',
+    'icon': 'iqs:event-tmpl',
+    'id': 'iqs_positron_event_templates'
+},
+{
+    'name': {
+        'ru': 'Шаблоны резолюций',
+        'en': 'Resolutions'
+    },
+    'description': {
+        'ru': 'Шаблонные резолюции для описания реакции на происшествия',
+        'en': 'Resolution templates for describing reactions to incidents'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_events/index.html#/resolutions',
+    'icon': 'iqs:incident-res',
+    'id': 'iqs_positron_resolutions'
+},
+{
+    'name': {
+        'ru': 'Правила событий',
+        'en': 'Rules'
+    },
+    'description': {
+        'ru': 'Настройка правил для генерации событий в системе',
+        'en': 'Setting rules for generating events in the system'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_events/index.html#/event_rules',
+    'icon': 'iqs:rules',
+    'id': 'iqs_positron_rules'
+},
+{
+    'name': {
+        'ru': 'Зоны объектов',
+        'en': 'Object zones'
+    },
+    'description': {
+        'ru': 'Зоны ассоциированные с подвижными объектами',
+        'en': 'Zones associated with mobile objects'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_zones/index.html#/zone_objects',
+    'icon': 'iqs:obj-zone',
+    'id': 'iqs_positron_object_zones'
+},
+{
+    'name': {
+        'ru': 'Смены',
+        'en': 'Shifts'
+    },
+    'description': {
+        'ru': 'Настройка рассписания смен',
+        'en': 'Setting the schedule shifts'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_organization/index.html#/shifts',
+    'icon': 'iqs:schedule',
+    'id': 'iqs_positron_shifts'
+},
+{
+    'name': {
+        'ru': 'Планы ЧС',
+        'en': 'Emergency plans'
+    },
+    'description': {
+        'ru': 'Планы действий при чрезвачайных ситуациях',
+        'en': 'Action plans for emergency situations'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'administration',
+    'url': '/config_emergency/index.html#',
+    'icon': 'iqs:emergency',
+    'id': 'iqs_positron_emergency'
+},
+{
+    'name': {
+        'ru': 'Гео-зоны',
+        'en': 'Geo-zones'
+    },
+    'description': {
+        'ru': 'Зоны с географической привязкой',
+        'en': 'Geo-referenced arease'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_zones/index.html#/zones',
+    'icon': 'iqs:geo-zone',
+    'id': 'iqs_admin_geo_zones'
+},
+{
+    'name': {
+        'ru': 'Параметры объектов',
+        'en': 'Object params'
+    },
+    'description': {
+        'ru': 'Сводная информация по параметрам',
+        'en': 'Summary information by parameters'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'analytics',
+    'url': '/stats/index.html#/object_params',
+    'icon': 'iqs:params',
+    'id': 'iqs_object_params'
+},
+{
+    'name': {
+        'ru': 'Маяки',
+        'en': 'Beacons'
+    },
+    'description': {
+        'ru': 'Настройка маяков',
+        'en': 'Beacons settings'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'config',
+    'url': '/config_devices/index.html#/beacons',
+    'icon': 'iqs:beacon',
+    'id': 'iqs_config_beacons'
+},
+{
+    'name': {
+        'ru': 'Использование',
+        'en': 'Usage'
+    },
+    'description': {
+        'ru': 'Анализ использования объектов',
+        'en': 'Analysis of objects usage'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'analytics',
+    'url': '/stats/index.html#/usage',
+    'icon': 'iqs:stats',
+    'id': 'iqs_positron_usage'
+},
+{
+    'name': {
+        'ru': 'Мониторинг данных',
+        'en': 'Data monitoring'
+    },
+    'description': {
+        'ru': 'Анализ данных во времени',
+        'en': 'Analysis of data usage'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'apps',
+    'url': '/datamonitoring/index.html',
+    'icon': 'iqs:monitoring',
+    'id': 'iqs_positron_datamonitoring'
+}, {
+    'name': {
+        'ru': 'Профили устройств',
+        'en': 'Data profiles'
+    },
+    'description': {
+        'ru': 'Управление профилями устройств',
+        'en': 'Device profiles'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.manager,
+    'group': 'apps',
+    'url': '/dataprofiles/index.html',
+    'icon': 'webui-icons:person-white',
+    'id': 'iqs_positron_dataprofiles'
+}, {
+    'name': {
+        'ru': 'Руководства',
+        'en': 'Guides'
+    },
+    'description': {
+        'ru': 'Управление руководствами',
+        'en': 'Guides management'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'management',
+    'url': '/dataprofiles/index.html',
+    'icon': 'webui-icons:help',
+    'id': 'iqs_positron_guides'
+}, {
+    'name': {
+        'ru': 'Логи',
+        'en': 'Logs'
+    },
+    'description': {
+        'ru': 'Информация о действиях',
+        'en': 'System logs'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'management',
+    'url': '/logging/index.html',
+    'icon': 'webui-icons:progress',
+    'id': 'iqs_positron_logging'
+}, {
+    'name': {
+        'ru': 'Шаблоны сообщений',
+        'en': 'Message templates'
+    },
+    'description': {
+        'ru': 'Шаблоны сообщений',
+        'en': 'Message templates'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'management',
+    'url': '/msg_templates/index.html',
+    'icon': 'webui-icons:config-all',
+    'id': 'iqs_positron_msgtemplates'
+}, {
+    'name': {
+        'ru': 'Пользователи',
+        'en': 'Users'
+    },
+    'description': {
+        'ru': 'Пользователи данной организации',
+        'en': 'Users of current organization'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.org_admin,
+    'group': 'management',
+    'url': '/users/index.html',
+    'icon': 'iqs:team',
+    'id': 'iqs_positron_users2'
+}, {
+    'name': {
+        'ru': 'Приложения',
+        'en': 'Applications'
+    },
+    'description': {
+        'ru': 'Управление микроприложениями',
+        'en': 'Microapplications management'
+    },
+    'product': 'iQuipsys Positron',
+    'role': UserRole.admin,
+    'group': 'management',
+    'url': '/applications/index.html',
+    'icon': 'iqs:factory',
+    'id': 'iqs_positron_applications'
+}];
 const notificationsDefault: Notification[] = [
     {
         label: 'High speed',

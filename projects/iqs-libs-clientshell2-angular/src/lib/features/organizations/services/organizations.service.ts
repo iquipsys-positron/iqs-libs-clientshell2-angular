@@ -68,7 +68,8 @@ export class IqsOrganizationsService {
                 if (roles.includes('admin')) { return UserRole.admin; }
                 const orgRole = roles.find(r => r.startsWith(org.id));
                 if (!orgRole) { return UserRole.unknown; }
-                const role = orgRole.substr(org.id.length + 1) as UserRole;
+                let role = orgRole.substr(org.id.length + 1) as UserRole;
+                if (role === UserRole.admin) { role = UserRole.org_admin; }
                 if (!Object.values(UserRole).includes(role as UserRole)) { return UserRole.unknown; }
                 return role;
             })

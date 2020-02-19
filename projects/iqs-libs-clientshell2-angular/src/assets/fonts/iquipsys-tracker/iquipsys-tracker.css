@@ -95,7 +95,7 @@
 .iqt-event-history:before {
   content: "\73";
 }
-.iqt-site-profile:before {
+.iqt-organization-profile:before {
   content: "\74";
 }
 .iqt-object-history:before {

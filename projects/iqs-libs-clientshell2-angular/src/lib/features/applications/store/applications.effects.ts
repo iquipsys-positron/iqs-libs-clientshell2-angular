@@ -29,9 +29,9 @@ export class ApplicationsEffects {
         distinctUntilKeyChanged('id'),
         withLatestFrom(this.settingsService.settings$),
         map(([org, settings]: [Organization, Object]) => {
-            const key = this.applicationsConfig.favoritesGroupName += '_' + org.id;
+            const key = this.applicationsConfig.favoritesGroupName + '_' + org.id;
             const favorites = settings.hasOwnProperty(key) ? JSON.parse(settings[key]) : [];
-            return new actionsFromApplications.ApplicationsInitAction(favorites, this.applicationsConfig.config);
+            return new actionsFromApplications.ApplicationsInitAction(favorites);
         })
     );
 
@@ -49,7 +49,7 @@ export class ApplicationsEffects {
                                 app.isFavorite = action.favorites.includes(app.id);
                                 app.isHidden = false;
                             }
-                            return new actionsFromApplications.ApplicationsSuccessAction(applications, action.config);
+                            return new actionsFromApplications.ApplicationsSuccessAction(applications);
                         }),
                         catchError(error => of(new actionsFromApplications.ApplicationsFailureAction(error)))
                     );
@@ -63,7 +63,7 @@ export class ApplicationsEffects {
         ofType(actionsFromApplications.ApplicationsActionType.ApplicationsSuccess),
         map((action: actionsFromApplications.ApplicationsSuccessAction) => {
             if (action.payload && action.payload.length > 0) {
-                return new actionsFromApplications.ApplicationsDataAction(action.payload, action.config);
+                return new actionsFromApplications.ApplicationsDataAction(action.payload);
             } else {
                 return new actionsFromApplications.ApplicationsEmptyAction();
             }
