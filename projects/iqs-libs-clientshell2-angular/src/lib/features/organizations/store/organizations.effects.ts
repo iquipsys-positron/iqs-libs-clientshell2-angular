@@ -52,15 +52,15 @@ export class OrganizationsEffects {
         this.actions$.pipe(ofType(SettingsActionType.SettingsData))
     ).pipe(
         switchMap(([organizationsAction, settingsAction]: [fromOrganizationsActions.OrganizationsDataAction, SettingsDataAction]) => {
-            if (settingsAction.payload.hasOwnProperty('organization_id')) {
-                const organizationId = settingsAction.payload['organization_id'];
+            if (settingsAction.payload.hasOwnProperty('org_id')) {
+                const organizationId = settingsAction.payload['org_id'];
                 const index = findIndex(organizationsAction.payload || [], ['id', organizationId]);
                 if (index >= 0) {
                     return of(new fromOrganizationsActions.OrganizationsCurrentAction(organizationsAction.payload[index]) as Action);
                 }
             }
             if (organizationsAction.payload && organizationsAction.payload.length) {
-                const settings = Object.assign({}, settingsAction.payload, { organization_id: organizationsAction.payload[0].id });
+                const settings = Object.assign({}, settingsAction.payload, { org_id: organizationsAction.payload[0].id });
                 return of(new SettingsUpdateAction({ settings }) as Action);
             } else {
                 return empty();

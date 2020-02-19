@@ -1,3 +1,13 @@
+## <a name="2.0.5"></a> 2.0.5 (2020-02-19)
+
+Fix organization key in settings
+
+#### Breaking Changes
+No breaking changes in this version
+
+#### Bug Fixes
+No bug fixes changes in this version
+
 ## <a name="2.0.4"></a> 2.0.4 (2020-02-19)
 
 Filter applications by role and fix icon
@@ -10,7 +20,7 @@ No breaking changes in this version
 
 ## <a name="2.0.3"></a> 2.0.3 (2020-02-14)
 
-Workarond for using 'config.json' file to manage application
+Workaround for using 'config.json' file to manage application
 
 #### Breaking Changes
 No breaking changes in this version
